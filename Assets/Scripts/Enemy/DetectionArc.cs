@@ -1,9 +1,11 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DetectionArc : MonoBehaviour
 {
     [SerializeField] private float length;
     [SerializeField] private float angle;
+    [SerializeField] private LayerMask visionObstacles;
 
     private bool playerInVision = false;
 
@@ -37,7 +39,16 @@ public class DetectionArc : MonoBehaviour
 
                 if (angleTo <= angle)
                 {
-                    return true;
+                    RaycastHit2D rayHit = Physics2D.Raycast(
+                        transform.position,
+                        dirToTarget,
+                        length,
+                        visionObstacles
+                    );
+                    if (rayHit.collider != null && PlayerLocator.IsPlayer(rayHit.collider.transform))
+                    {
+                        return true;
+                    }
                 }
             }
         }
