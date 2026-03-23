@@ -1,0 +1,21 @@
+using UnityEngine;
+
+public class OceanManager : MonoBehaviour
+{
+    [SerializeField, Range(0f, 1f)]
+    private float openness;
+    [SerializeField, Range(0f, 1f)]
+    private float conscientiousness;
+    [SerializeField, Range(0f, 1f)]
+    private float extraversion;
+    [SerializeField, Range(0f, 1f)]
+    private float agreeableness;
+    [SerializeField, Range(0f, 1f)]
+    private float neuroticism;
+
+    public float Openness { get => openness; }
+    public float Conscientiousness { get => conscientiousness; }
+    public float Extraversion { get => extraversion; }
+    public float Agreeableness { get => agreeableness; }
+    public float Neuroticism { get => neuroticism; }
+}

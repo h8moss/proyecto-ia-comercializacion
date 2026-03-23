@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -9,8 +10,27 @@ public class PlayerDetection : MonoBehaviour
     [SerializeField] private float healRate;
 
     private int detectionCount = 0;
-    [SerializeField] private float health;
+    private float health;
     private bool canHeal = true;
+
+    public Action<float> healthChanged;
+
+    public float Health
+    {
+        get => health;
+        private set
+        {   
+            if (value != health)
+            {
+                health = value;
+                healthChanged?.Invoke(value);
+            }
+        }
+    }
+    public float MaxHealth
+    {
+        get => maxHealth;
+    }
 
     void Start()
     {
@@ -22,13 +42,13 @@ public class PlayerDetection : MonoBehaviour
 
     void Update()
     {
-        health -= detectionCount * detectionRate * Time.deltaTime;
+        Health -= detectionCount * detectionRate * Time.deltaTime;
         if (canHeal)
         {
-            health = Mathf.Min(maxHealth, health + healRate*Time.deltaTime);
+            Health = Mathf.Min(maxHealth, health + healRate*Time.deltaTime);
         }
 
-        if (health <= 0)
+        if (Health <= 0)
         {
             // Trigger game over
         }
