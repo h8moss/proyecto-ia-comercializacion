@@ -7,6 +7,12 @@ public class DetectionArc : MonoBehaviour
     [SerializeField] private float angle;
     [SerializeField] private LayerMask visionObstacles;
 
+    public void SetDetectionField(float length, float angle)
+    {
+        this.length = length;
+        this.angle = angle;
+    }
+
     private bool playerInVision = false;
 
     void Update()
