@@ -85,10 +85,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StaticBehaviour
   maxHearingDistance: 15
-  rotationSpeed: 90
-  idleReturnDelay: 3
-  idleLookInterval: 4
-  idleLookAngleRange: 90
+  rotationSpeed: 180
+  idleReturnDelay: 2
+  idleLookInterval: 3
+  idleLookAngleRange: 180
 --- !u!58 &3085490593091688366
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -139,6 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DetectionArcVisualizer
   meshResolution: 30
   visionConeMaterial: {fileID: 2100000, guid: 6cfc7b8754218fe8e82c6951435e927e, type: 2}
+  visionColor: {r: 1, g: 0, b: 0, a: 0.3}
 --- !u!1 &1622971964564638837
 GameObject:
   m_ObjectHideFlags: 0
