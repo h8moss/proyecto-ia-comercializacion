@@ -205,13 +205,13 @@ MonoBehaviour:
       - m_Target: {fileID: 333133373}
         m_TargetAssemblyTypeName: MenuGameOver, Assembly-CSharp
         m_MethodName: Menu
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: MenuLobby
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &33307102
@@ -530,7 +530,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &333133369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -607,7 +607,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 772699470}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 628848497}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -638,8 +638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50a15af8b7a6fe14ebb1ae92586e444a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDeathHandler
-  playerDetection: {fileID: 0}
-  deathScreen: {fileID: 0}
+  deathScreen: {fileID: 772699469}
   pauseGameOnDeath: 1
 --- !u!1 &341632834
 GameObject:
@@ -752,7 +751,7 @@ RectTransform:
   m_Children:
   - {fileID: 1864890659}
   - {fileID: 1404994864}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 628848497}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1717,6 +1716,8 @@ Transform:
   m_Children:
   - {fileID: 1806850582}
   - {fileID: 893312770}
+  - {fileID: 341632839}
+  - {fileID: 333133372}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &695632781
@@ -2511,7 +2512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &772699470
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6317,5 +6318,3 @@ SceneRoots:
   - {fileID: 525257922}
   - {fileID: 628848497}
   - {fileID: 855819885}
-  - {fileID: 333133372}
-  - {fileID: 341632839}

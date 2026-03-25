@@ -9,12 +9,12 @@ public class MenuSystem : MonoBehaviour
   
     public void Play()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+        SceneManager.LoadScene(2);
     }
 
-    public void SelectLevels (String nombre)
+    public void SelectLevels()
     {
-        SceneManager.LoadScene(nombre);
+        SceneManager.LoadScene(1);
     }
 
     public void Exit()
