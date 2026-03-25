@@ -20,4 +20,25 @@ public class SelectLevels : MonoBehaviour
     {
         SceneManager.LoadScene(nombre);
     }
+
+    public void LoadLevel1()
+    {
+        SceneManager.LoadScene(2);
+    }
+
+    public void LoadLevel2()
+    {
+        SceneManager.LoadScene(3);
+    }
+
+    public void LoadLevel3()
+    {
+        Debug.LogWarning("Level 3 is not connected");
+    }
+
+    public void LoadLevel4()
+    {
+        Debug.LogWarning("Level 4 is not connected");
+    }
+
 }
