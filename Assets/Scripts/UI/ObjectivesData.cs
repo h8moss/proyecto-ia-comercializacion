@@ -18,6 +18,9 @@ public class ObjectivesData : MonoBehaviour
     }
 
     void SetObjective() {
-        text.text = manager.Objectives[manager.CurrentObjective].title;
+        if (manager.HasObjective)
+            text.text = manager.Objectives[manager.CurrentObjective].title;
+        else
+            text.text = "";
     }
 }

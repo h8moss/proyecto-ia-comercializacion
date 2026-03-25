@@ -11,6 +11,7 @@ public class ObjectiveManager : MonoBehaviour
 
     public int currentObjective = 0;
     public int CurrentObjective { get => currentObjective; }
+    public bool HasObjective { get => currentObjective < objectives.Length; }
 
     public Action ObjectiveChanged;
 
