@@ -799,7 +799,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1674580714}
         m_TargetAssemblyTypeName: MenuSystem, Assembly-CSharp
         m_MethodName: SelectLevels
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
