@@ -48,11 +48,6 @@ public class PlayerDetection : MonoBehaviour
         {
             Health = Mathf.Min(maxHealth, health + healRate*Time.deltaTime);
         }
-
-        if (Health <= 0)
-        {
-            // Trigger game over
-        }
     }
 
     void OnDetected()

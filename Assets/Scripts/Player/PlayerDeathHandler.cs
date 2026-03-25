@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerDeathHandler : MonoBehaviour
 {
     [Header("Referencias")]
-    [SerializeField] private PlayerDetection playerDetection;
     [SerializeField] private GameObject deathScreen;
 
     [Header("Opciones")]
@@ -14,20 +13,21 @@ public class PlayerDeathHandler : MonoBehaviour
 
     private bool isDead = false;
 
-    void OnEnable()
+    private PlayerDetection playerDetection;
+
+    void Start()
     {
-        if (playerDetection != null)
-        {
-            playerDetection.healthChanged += CheckDeath;
-        }
+        playerDetection = PlayerLocator.Player.GetComponent<PlayerDetection>();
+        playerDetection.healthChanged += CheckDeath;
     }
 
-    void OnDisable()
+    void OnDestroy()
     {
         if (playerDetection != null)
         {
             playerDetection.healthChanged -= CheckDeath;
         }
+        Time.timeScale = 1;
     }
 
     void CheckDeath(float currentHealth)
@@ -43,7 +43,6 @@ public class PlayerDeathHandler : MonoBehaviour
 
     void OnPlayerDeath()
     {
-        Debug.Log("Te vieron.");
 
         // Activar Death Screen
         if (deathScreen != null)
@@ -55,7 +54,7 @@ public class PlayerDeathHandler : MonoBehaviour
             Debug.LogWarning("No asignaste el Death Screen en el inspector.");
         }
 
-        // Pausar juego (opcional)
+        // Pausar juego (opcional) // Por que es opcional?? Cuando no querriamos pausar?
         if (pauseGameOnDeath)
         {
             Time.timeScale = 0f;
