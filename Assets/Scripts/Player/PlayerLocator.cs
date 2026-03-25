@@ -6,7 +6,7 @@ public class PlayerLocator : MonoBehaviour
 
     void Awake()
     {
-        if (Player == null) Player = transform;
+        Player = transform;
     }
 
     static public bool IsPlayer(Transform t)
