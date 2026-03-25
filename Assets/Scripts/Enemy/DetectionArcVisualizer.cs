@@ -20,7 +20,7 @@ public class DetectionArcVisualizer : MonoBehaviour
         var renderer = gameObject.AddComponent<MeshRenderer>();
         visionConeMaterial.color = visionColor;
         renderer.material = visionConeMaterial;
-        renderer.sortingLayerName = "Default";
+        renderer.sortingLayerName = "Normal";
         renderer.sortingOrder = 1;
         visionMesh = new Mesh();
         meshFilter.mesh = visionMesh;
