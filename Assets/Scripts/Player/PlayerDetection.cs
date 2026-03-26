@@ -41,6 +41,12 @@ public class PlayerDetection : MonoBehaviour
         health = maxHealth;
     }
 
+    void OnDestroy() 
+    {
+        DetectionEvents.OnPlayerDetected -= OnDetected;
+        DetectionEvents.OnPlayerHidden -= OnHidden;
+    }
+
     void Update()
     {
         Health -= detectionCount * detectionRate * Time.deltaTime;
