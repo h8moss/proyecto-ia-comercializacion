@@ -1,9 +1,13 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class GeneralEnemyMovement : MonoBehaviour
 {
+
+    public Action OnFinishedPath;
+
     [SerializeField] private float speed;
 
     private List<Vector2> path;
@@ -21,7 +25,8 @@ public class GeneralEnemyMovement : MonoBehaviour
         if (HasPath())
         {
             if (pathIndex >= path.Count) {
-                UnsetPath();
+                OnFinishedPath?.Invoke();
+                // UnsetPath();
                 return;
             }
             Vector2 target = path[pathIndex];
@@ -40,6 +45,7 @@ public class GeneralEnemyMovement : MonoBehaviour
         if (newPath.Count == 0) return;
         path = newPath;
         pathIndex = 0;
+        Debug.Log("New path"); 
     }
 
     public void UnsetPath()
@@ -50,5 +56,13 @@ public class GeneralEnemyMovement : MonoBehaviour
     public bool HasPath()
     {
         return path != null;
+    }
+
+    void OnDrawGizmos()
+    {
+        if (HasPath() && path.Count >= 2)
+        {
+            Gizmos.DrawLine(path[0], path[path.Count-1]);
+        }
     }
 }
