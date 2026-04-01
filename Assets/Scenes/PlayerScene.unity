@@ -144,13 +144,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 27921585}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 609289070}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!212 &27921587
 SpriteRenderer:
   serializedVersion: 2
@@ -529,6 +529,7 @@ GameObject:
   - component: {fileID: 185436296}
   - component: {fileID: 185436298}
   - component: {fileID: 185436297}
+  - component: {fileID: 185436299}
   m_Layer: 0
   m_Name: EnemyTest
   m_TagString: Untagged
@@ -582,7 +583,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StaticBehaviour
   maxHearingDistance: 15
-  rotationSpeed: 90
   idleReturnDelay: 3
   idleLookInterval: 4
   idleLookAngleRange: 90
@@ -603,6 +603,20 @@ MonoBehaviour:
   extraversion: 1
   agreeableness: 1
   neuroticism: 1
+--- !u!114 &185436299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185436294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 716d35fdfcc45fd1abfc7ab4d8f58c80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GeneralEnemyRotation
+  rotationSpeed: 90
+  forwardAngleOffset: -90
 --- !u!1 &340279653
 GameObject:
   m_ObjectHideFlags: 0
@@ -955,6 +969,7 @@ GameObject:
   - component: {fileID: 609289073}
   - component: {fileID: 609289072}
   - component: {fileID: 609289071}
+  - component: {fileID: 609289078}
   m_Layer: 0
   m_Name: EnemyPatrol
   m_TagString: Untagged
@@ -1007,7 +1022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b96b7dd6c8c973fa0abc037a82396a46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GeneralEnemyMovement
-  speed: 5
+  speed: 100
 --- !u!50 &609289073
 Rigidbody2D:
   serializedVersion: 5
@@ -1120,6 +1135,20 @@ MonoBehaviour:
   visionObstacles:
     serializedVersion: 2
     m_Bits: 8
+--- !u!114 &609289078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 609289069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 716d35fdfcc45fd1abfc7ab4d8f58c80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GeneralEnemyRotation
+  rotationSpeed: 180
+  forwardAngleOffset: 0
 --- !u!1 &628848496
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,6 +1193,7 @@ GameObject:
   - component: {fileID: 633146282}
   - component: {fileID: 633146281}
   - component: {fileID: 633146280}
+  - component: {fileID: 633146283}
   m_Layer: 0
   m_Name: EnemyTest (1)
   m_TagString: Untagged
@@ -1200,7 +1230,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StaticBehaviour
   maxHearingDistance: 15
-  rotationSpeed: 90
   idleReturnDelay: 3
   idleLookInterval: 4
   idleLookAngleRange: 90
@@ -1238,6 +1267,20 @@ MonoBehaviour:
   visionObstacles:
     serializedVersion: 2
     m_Bits: 72
+--- !u!114 &633146283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633146278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 716d35fdfcc45fd1abfc7ab4d8f58c80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GeneralEnemyRotation
+  rotationSpeed: 90
+  forwardAngleOffset: -90
 --- !u!1 &843616244
 GameObject:
   m_ObjectHideFlags: 0
@@ -2404,13 +2447,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1810999419}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.48726, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.51, y: -0, z: 0}
   m_LocalScale: {x: 0.54922, y: 0.54922, z: 0.54922}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 609289070}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!212 &1810999421
 SpriteRenderer:
   serializedVersion: 2
