@@ -2,13 +2,11 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(OceanManager))]
+[RequireComponent(typeof(GeneralEnemyRotation))]
 public class StaticBehaviour : MonoBehaviour
 {
     [Header("Sound Detection")]
     [SerializeField] private float maxHearingDistance = 15f;
-
-    [Header("Rotation")]
-    [SerializeField] private float rotationSpeed = 90f;
 
     [Header("Idle Behaviour")]
     [SerializeField] private float idleReturnDelay = 3f;
@@ -19,19 +17,20 @@ public class StaticBehaviour : MonoBehaviour
     public event Action OnReturnedToIdle;
 
     private OceanManager ocean;
-    private Quaternion defaultRotation;
-    private Quaternion targetRotation;
+    private GeneralEnemyRotation rotator;
     private float idleReturnTimer = 0f;
     private float idleLookTimer = 0f;
     private bool isAlert = false;
+    private Quaternion defaultRotation;
 
     void Start()
     {
         ocean = GetComponent<OceanManager>();
-        defaultRotation = transform.rotation;
-        targetRotation = defaultRotation;
+        rotator = GetComponent<GeneralEnemyRotation>();
         WorldEvents.OnSoundMade += HandleSoundMade;
         idleLookTimer = GetNextLookInterval();
+
+        defaultRotation = transform.rotation;
     }
 
     void OnDestroy()
@@ -41,12 +40,6 @@ public class StaticBehaviour : MonoBehaviour
 
     void Update()
     {
-        transform.rotation = Quaternion.RotateTowards(
-            transform.rotation,
-            targetRotation,
-            rotationSpeed * Time.deltaTime
-        );
-
         if (isAlert)
             UpdateAlert();
         else
@@ -59,7 +52,7 @@ public class StaticBehaviour : MonoBehaviour
         if (idleReturnTimer <= 0f)
         {
             isAlert = false;
-            targetRotation = defaultRotation;
+            rotator.TargetRotation = defaultRotation;
             idleLookTimer = GetNextLookInterval();
             OnReturnedToIdle?.Invoke();
         }
@@ -74,10 +67,8 @@ public class StaticBehaviour : MonoBehaviour
         if (idleLookTimer <= 0f)
         {
             if (UnityEngine.Random.value < lookDrive)
-            {
-                float angle = UnityEngine.Random.Range(-idleLookAngleRange, idleLookAngleRange);
-                targetRotation = defaultRotation * Quaternion.Euler(0f, 0f, angle);
-            }
+                rotator.LookAtRandomAngle(defaultRotation, idleLookAngleRange);
+
             idleLookTimer = GetNextLookInterval();
         }
     }
@@ -93,20 +84,13 @@ public class StaticBehaviour : MonoBehaviour
         if (perceivedLoudness < threshold) return;
 
         if (UnityEngine.Random.value < ocean.Openness)
-            targetRotation = GetRotationTowards(position);
+            rotator.LookAt(position);
 
         float alertDuration = idleReturnDelay * (1f + ocean.Conscientiousness);
         idleReturnTimer = Mathf.Max(idleReturnTimer, alertDuration);
         isAlert = true;
 
         OnSoundHeard?.Invoke(position, perceivedLoudness);
-    }
-
-    Quaternion GetRotationTowards(Vector2 target)
-    {
-        Vector2 direction = (target - (Vector2)transform.position).normalized;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        return Quaternion.Euler(0f, 0f, angle - 90f);
     }
 
     float GetNextLookInterval()

@@ -18,4 +18,11 @@ public class OceanManager : MonoBehaviour
     public float Extraversion { get => extraversion; }
     public float Agreeableness { get => agreeableness; }
     public float Neuroticism { get => neuroticism; }
+
+    public float O { get => openness; }
+    public float C { get => conscientiousness; }
+    public float E { get => extraversion; }
+    public float A { get => agreeableness; }
+    public float N { get => neuroticism; }
+
 }
