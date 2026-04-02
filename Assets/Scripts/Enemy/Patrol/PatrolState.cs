@@ -4,5 +4,6 @@ public enum PatrolState
 {
     Patrol,
     Investigation,
-    Return
+    Return,
+    Waiting
 }
