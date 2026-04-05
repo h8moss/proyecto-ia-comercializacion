@@ -22,11 +22,11 @@ public class PatrolBehaviour : MonoBehaviour
     private OceanManager ocean;
     private float waitingLookTimer = 0f;
     private Quaternion waitingInitialRotation;
+    private Vector3 investigationTarget;
     
 
     void SetState(PatrolState newState)
     {
-        if (state == newState) return;
         switch (state)
         {
             case PatrolState.Patrol:
@@ -34,9 +34,6 @@ public class PatrolBehaviour : MonoBehaviour
             break;
             case PatrolState.Investigation:
                 OnInvestigationEnd();
-            break;
-            case PatrolState.Return:
-                OnReturnEnd();
             break;
             case PatrolState.Waiting:
                 OnWaitingEnd();
@@ -53,9 +50,6 @@ public class PatrolBehaviour : MonoBehaviour
             break;
             case PatrolState.Investigation:
                 OnInvestigationStart();
-            break;
-            case PatrolState.Return:
-                OnReturnStart();
             break;
             case PatrolState.Waiting:
                 OnWaitingStart();
@@ -89,9 +83,6 @@ public class PatrolBehaviour : MonoBehaviour
             case PatrolState.Investigation:
                 InvestigationUpdate();
             break;
-            case PatrolState.Return:
-                ReturnUpdate();
-            break;
             case PatrolState.Waiting:
                 WaitingUpdate();
             break;
@@ -103,15 +94,20 @@ public class PatrolBehaviour : MonoBehaviour
 
     void OnPatrolStart()
     {
+        Debug.Log("Patrol");
         // TODO: A* May not be needed on normal patrol behaviour.
         Vector3 target = patrolPoints[currentPatrolTarget].position;
         aStar.destination = target;
     }
     void OnPatrolEnd() {}
-    void OnInvestigationStart() {}
-    void OnInvestigationEnd() {}
-    void OnReturnStart() {}
-    void OnReturnEnd() {}
+    void OnInvestigationStart()
+    {
+        Debug.Log("Going towards: " + investigationTarget);
+        aStar.destination = investigationTarget;
+    }
+    void OnInvestigationEnd()
+    {
+    }
     void OnWaitingStart()
     {
         waitingInitialRotation = transform.rotation;
@@ -143,8 +139,17 @@ public class PatrolBehaviour : MonoBehaviour
         }
         rotation.LookAt(target);
     }
-    void InvestigationUpdate() {}
-    void ReturnUpdate() { }
+    void InvestigationUpdate()
+    {
+        float dst = Vector3.Distance(transform.position, investigationTarget);
+        if (dst < 1.0f)
+        {
+            // If we switch patrol to not use A*, this won't work nomore.
+            // We'll have to implement a new state: Return
+            SetState(PatrolState.Patrol);
+        }
+        rotation.LookAt(investigationTarget);
+    }
 
     void WaitingUpdate()
     {
@@ -175,7 +180,11 @@ public class PatrolBehaviour : MonoBehaviour
 
         float threshold = 0.5f - (ocean.Neuroticism * 0.4f);
         if (perceivedLoudness < threshold) return;
+        if (Random.value >= ocean.Openness) return; 
 
+        Debug.Log("Heard you!");
+
+        investigationTarget = position;
         SetState(PatrolState.Investigation);
     }
 
@@ -190,6 +199,8 @@ public class PatrolBehaviour : MonoBehaviour
             * Random.Range(0.75f, 1.25f),
         0.5f,
         8.0f);
+
+        Debug.Log("Waiting: " + waitTime);
 
         yield return new WaitForSeconds(waitTime);
 
