@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5089514201273988378}
   - component: {fileID: 1018516575097234104}
   - component: {fileID: 783244346072368625}
+  - component: {fileID: 6365460509926724290}
   m_Layer: 6
   m_Name: player
   m_TagString: Untagged
@@ -154,6 +155,21 @@ MonoBehaviour:
   detectionRate: 50
   healDelay: 5
   healRate: 10
+--- !u!114 &6365460509926724290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925184113960743666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca831f410ea354deeb1c40388bde8e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerThrowCoin
+  coinPrefab: {fileID: 8306465515549201878, guid: 4aef4ba5d64ed84ba84c24e316ff97f9, type: 3}
+  fireReloadTime: 1
+  fireForce: 5
 --- !u!1 &2755865373617830889
 GameObject:
   m_ObjectHideFlags: 0
