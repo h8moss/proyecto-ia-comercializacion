@@ -6,7 +6,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed;
 
     private Rigidbody2D rb;
-    private Vector2 movement;
+    public Vector2 Movement { get; private set; }
+
 
     void Start()
     {
@@ -15,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        movement = new Vector2(
+        Movement = new Vector2(
             Input.GetAxisRaw("Horizontal"),
             Input.GetAxisRaw("Vertical")
         ).normalized;
@@ -23,6 +24,6 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.linearVelocity = movement * Time.fixedDeltaTime * speed;
+        rb.linearVelocity = speed * Time.fixedDeltaTime * Movement;
     }
 }
