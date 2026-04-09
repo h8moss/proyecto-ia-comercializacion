@@ -1,11 +1,13 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ObjectiveManager : MonoBehaviour
 {
     static ObjectiveManager instance;
     public static ObjectiveManager Instance { get => instance; }
     [SerializeField] private Objective[] objectives;
+    [SerializeField] private int level;
 
     public Objective[] Objectives { get => objectives; }
 
@@ -37,12 +39,23 @@ public class ObjectiveManager : MonoBehaviour
             currentObjective++;
             if (currentObjective == objectives.Length)
             {
-                // TODO: Level complete!
+                CompleteLevel();
             } else
             {
                 objectives[currentObjective].RaiseOnBecomeActive();
             }
             ObjectiveChanged?.Invoke();
         }
+    }
+
+    void CompleteLevel()
+    {
+        SaveManager manager = SaveManager.Instance;
+        manager.Save(
+            manager.State.CopyWith(levelProgress: Mathf.Max(level, manager.State.LevelProgress))
+        );
+
+        // Load level selector
+        SceneManager.LoadScene(1);
     }
 }
