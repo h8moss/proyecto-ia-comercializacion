@@ -16,7 +16,7 @@ public class SelectLevels : MonoBehaviour
     {
         SceneManager.LoadScene(nameLevel);
     }
-    public void Menu (String nombre)
+    public void Menu(string nombre)
     {
         SceneManager.LoadScene(nombre);
     }
