@@ -268,6 +268,7 @@ GameObject:
   - component: {fileID: 179143944}
   - component: {fileID: 179143943}
   - component: {fileID: 179143942}
+  - component: {fileID: 179143945}
   m_Layer: 5
   m_Name: Level -  2
   m_TagString: Untagged
@@ -389,6 +390,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 179143940}
   m_CullTransparentMesh: 1
+--- !u!114 &179143945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179143940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0247074d8218f060b83eb37e7571e79e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DisableLevelButton
+  level: 2
 --- !u!1 &181368873
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,6 +497,7 @@ GameObject:
   - component: {fileID: 216483716}
   - component: {fileID: 216483715}
   - component: {fileID: 216483714}
+  - component: {fileID: 216483717}
   m_Layer: 5
   m_Name: Level -  3
   m_TagString: Untagged
@@ -604,6 +619,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 216483712}
   m_CullTransparentMesh: 1
+--- !u!114 &216483717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216483712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0247074d8218f060b83eb37e7571e79e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DisableLevelButton
+  level: 3
 --- !u!1 &714911976
 GameObject:
   m_ObjectHideFlags: 0
@@ -828,6 +856,7 @@ GameObject:
   - component: {fileID: 1001514601}
   - component: {fileID: 1001514600}
   - component: {fileID: 1001514599}
+  - component: {fileID: 1001514602}
   m_Layer: 5
   m_Name: Level -  4
   m_TagString: Untagged
@@ -949,6 +978,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1001514597}
   m_CullTransparentMesh: 1
+--- !u!114 &1001514602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001514597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0247074d8218f060b83eb37e7571e79e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DisableLevelButton
+  level: 4
 --- !u!1 &1050402428
 GameObject:
   m_ObjectHideFlags: 0
@@ -1898,6 +1940,7 @@ GameObject:
   - component: {fileID: 1653260964}
   - component: {fileID: 1653260963}
   - component: {fileID: 1653260962}
+  - component: {fileID: 1653260965}
   m_Layer: 5
   m_Name: Level -  1
   m_TagString: Untagged
@@ -2019,6 +2062,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1653260960}
   m_CullTransparentMesh: 1
+--- !u!114 &1653260965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653260960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0247074d8218f060b83eb37e7571e79e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DisableLevelButton
+  level: 1
 --- !u!1 &1684125762
 GameObject:
   m_ObjectHideFlags: 0
