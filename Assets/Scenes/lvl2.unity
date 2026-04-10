@@ -2801,6 +2801,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectiveManager
   objectives:
   - {fileID: 1302960757}
+  level: 2
   currentObjective: 0
 --- !u!1 &599881824
 GameObject:

@@ -2205,6 +2205,7 @@ MonoBehaviour:
   - {fileID: 732484483}
   - {fileID: 1515025651}
   - {fileID: 2017417809}
+  level: 1
   currentObjective: 0
 --- !u!1 &596328227
 GameObject:
