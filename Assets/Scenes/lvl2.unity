@@ -15644,7 +15644,6 @@ GameObject:
   - component: {fileID: 1302960757}
   - component: {fileID: 1302960759}
   - component: {fileID: 1302960758}
-  - component: {fileID: 1302960762}
   m_Layer: 0
   m_Name: Coffeshop
   m_TagString: Untagged
@@ -15750,19 +15749,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1439381467}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1302960762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1302960756}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91aed97d5c51b274d9cdc773c4629104, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractLoadScene
-  scene: 1
 --- !u!1 &1307052046
 GameObject:
   m_ObjectHideFlags: 0
