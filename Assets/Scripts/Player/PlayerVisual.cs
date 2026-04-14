@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMovement))]
+[RequireComponent(typeof(PlayerDetection))]
 public class PlayerVisual : MonoBehaviour
 {
     [SerializeField] private Animator animator;
@@ -9,16 +10,26 @@ public class PlayerVisual : MonoBehaviour
 
 
     private bool isMoving;
+    private bool isDead;
 
     private PlayerMovement playerMovement;
+    private PlayerDetection playerDetection;
 
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        playerDetection = GetComponent<PlayerDetection>();
+        playerDetection.healthChanged += HealthChanged;
+    }
+
+    void OnDestroy()
+    {
+        playerDetection.healthChanged -= HealthChanged;
     }
 
     void Update()
     {
+        if (isDead) return;
         Vector2 movement = playerMovement.Movement;
         if (movement.magnitude > 0.1f)
         {
@@ -77,5 +88,16 @@ public class PlayerVisual : MonoBehaviour
         }
 
         sprite.rotation = Quaternion.Euler(0,0,angle);
+    }
+
+    void HealthChanged(float h)
+    {
+        if (isDead) return;
+        if (h <= 0)
+        {
+            isMoving = false;
+            isDead = true;
+            animator.SetTrigger("Death");
+        }
     }
 }

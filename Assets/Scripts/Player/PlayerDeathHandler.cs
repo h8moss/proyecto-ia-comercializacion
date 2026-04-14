@@ -10,6 +10,7 @@ public class PlayerDeathHandler : MonoBehaviour
 
     [Header("Opciones")]
     [SerializeField] private bool pauseGameOnDeath = true;
+    [SerializeField] private float deathTimer = 3.0f;
 
     private bool isDead = false;
 
@@ -37,12 +38,13 @@ public class PlayerDeathHandler : MonoBehaviour
         if (currentHealth <= 0)
         {
             isDead = true;
-            OnPlayerDeath();
+            StartCoroutine(OnPlayerDeath());
         }
     }
 
-    void OnPlayerDeath()
+    IEnumerator OnPlayerDeath()
     {
+        yield return new WaitForSeconds(deathTimer);
 
         // Activar Death Screen
         if (deathScreen != null)
