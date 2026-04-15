@@ -13,8 +13,10 @@ public class PlayerDetection : MonoBehaviour
     private int detectionCount = 0;
     private float health;
     private bool canHeal = true;
+    private bool isDead = false;
 
     public Action<float> healthChanged;
+    public Action OnDeath;
 
     public float Health
     {
@@ -25,6 +27,12 @@ public class PlayerDetection : MonoBehaviour
             {
                 health = value;
                 healthChanged?.Invoke(value);
+
+                if (health <= 0 && !isDead)
+                {
+                    isDead = true;
+                    OnDeath.Invoke();
+                }
             }
         }
     }

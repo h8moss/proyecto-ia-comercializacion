@@ -98,6 +98,7 @@ public class PlayerVisual : MonoBehaviour
             isMoving = false;
             isDead = true;
             animator.SetTrigger("Death");
+            animator.SetBool("isMoving", false);
         }
     }
 }
