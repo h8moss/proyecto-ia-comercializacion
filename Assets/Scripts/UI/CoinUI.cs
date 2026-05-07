@@ -14,7 +14,7 @@ public class CoinUI : MonoBehaviour
         playerThrowCoin = PlayerLocator.Player.GetComponent<PlayerThrowCoin>();
         maxCoins = playerThrowCoin.MaxCoinCount;
         playerThrowCoin.coinsChanged += OnCoinsChanged;
-        OnCoinsChanged(playerThrowCoin.CoinCount);
+        OnCoinsChanged(playerThrowCoin.MaxCoinCount);
     }
 
     void OnCoinsChanged(int coins)
