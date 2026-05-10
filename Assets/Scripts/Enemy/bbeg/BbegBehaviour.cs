@@ -11,7 +11,8 @@ public class BbegBehaviour : MonoBehaviour
     [SerializeField] private float thinkingTime;
     [SerializeField] private float playerStaticTime;
     [SerializeField] private float cellSize = 10f; // world units
-    [SerializeField] private int gridRadius = 5; // how many cells around the player to draw
+    [SerializeField] private float seekingSpeedMultiplier = 1.2f;
+    [SerializeField] private float hearingThreshold = 3.0f;
 
 
     private Vector2Int currentCell;
@@ -20,7 +21,8 @@ public class BbegBehaviour : MonoBehaviour
     private int currentPatrolTarget;
     private AIPath aStar;
     private GeneralEnemyRotation rotation;
-    private Quaternion thinkingInitialRotation;
+    private float initialSpeed;
+    private Vector3 seekingTarget;
     
     void Start()
     {
@@ -28,6 +30,8 @@ public class BbegBehaviour : MonoBehaviour
         currentPatrolTarget = 0;
         aStar = GetComponent<AIPath>();
         rotation = GetComponent<GeneralEnemyRotation>();
+        initialSpeed = aStar.maxSpeed;
+        WorldEvents.OnSoundMade += HandleSoundMade;
 
         // Start with patrol
         SetState(BbegState.Patrol);
@@ -77,20 +81,19 @@ public class BbegBehaviour : MonoBehaviour
 
     void Update()
     {
-
         Vector3 playerPos = PlayerLocator.Player.position;
 
-        Vector2Int newCell = new Vector2Int(
-        Mathf.FloorToInt(playerPos.x / cellSize),
-        Mathf.FloorToInt(playerPos.z / cellSize)
-    );
+        Vector2Int newCell = new(
+            Mathf.FloorToInt(playerPos.x / cellSize),
+            Mathf.FloorToInt(playerPos.z / cellSize)
+        );
 
-    if (newCell == currentCell) {
-        timeInCell += Time.deltaTime;
-    } else {
-        currentCell = newCell;
-        timeInCell = 0f;
-    }
+        if (newCell == currentCell) {
+            timeInCell += Time.deltaTime;
+        } else {
+            currentCell = newCell;
+            timeInCell = 0f;
+        }
 
         switch (state)
         {
@@ -109,20 +112,31 @@ public class BbegBehaviour : MonoBehaviour
         }
     }
 
-    void OnPatrolStart() {}
+    void OnPatrolStart()
+    {
+        Vector3 target = patrolPoints[currentPatrolTarget].position;
+        aStar.destination = target;
+    }
     void OnThinkingStart()
     {
-        thinkingInitialRotation = transform.rotation;
         aStar.destination = transform.position;
         StartCoroutine(ThinkingRoutine());
     }
     void OnTalkingStart() {}
-    void OnSeekingStart() {}
+    void OnSeekingStart()
+    {
+        aStar.maxSpeed = initialSpeed * seekingSpeedMultiplier;
+
+        aStar.destination = seekingTarget;
+    }
 
     void OnPatrolEnd() {}
     void OnThinkingEnd() {}
     void OnTalkingEnd() {}
-    void OnSeekingEnd() {}
+    void OnSeekingEnd()
+    {
+        aStar.maxSpeed = initialSpeed;
+    }
 
     void PatrolUpdate() {
         Vector3 target = patrolPoints[currentPatrolTarget].position;
@@ -143,7 +157,17 @@ public class BbegBehaviour : MonoBehaviour
         }
         rotation.LookAt(target);
     }
-    void SeekingUpdate() {}
+    void SeekingUpdate()
+    {
+        float dst = Vector3.Distance(aStar.destination, transform.position);
+        Debug.Log(dst);
+        if (dst < 1.0f)
+        {
+            SetState(BbegState.Thinking);
+        }
+
+        rotation.LookAt(seekingTarget);
+    }
     void TalkingUpdate() {}
     void ThinkingUpdate() {}
 
@@ -153,55 +177,21 @@ public class BbegBehaviour : MonoBehaviour
         float waitTime = 2 + Random.value+2; // 2 to 4 seconds
         yield return new WaitForSeconds(waitTime);
 
+        if (shouldSeek) seekingTarget = PlayerLocator.Player.position;
         SetState(shouldSeek ? BbegState.Seeking : BbegState.Patrol);
     }
 
-    private void OnDrawGizmosSelected()
+    void HandleSoundMade(Vector2 position, float initialLoudness)
     {
-        Transform player = PlayerLocator.Player;
-        Gizmos.color = Color.gray;
+        float dst = Vector2.Distance(transform.position, position);
 
-        Vector3 playerPos = player.position;
+        float perceivedLoudness = initialLoudness / (dst * dst);
 
-        int centerX = Mathf.FloorToInt(playerPos.x / cellSize);
-        int centerZ = Mathf.FloorToInt(playerPos.z / cellSize);
+        if (perceivedLoudness < hearingThreshold) return;
 
-        float size = gridRadius * cellSize;
+        Debug.Log("BBEG Heard you!");
 
-        // Draw vertical lines
-        for (int x = -gridRadius; x <= gridRadius; x++)
-        {
-            float worldX = (centerX + x) * cellSize;
-
-            Vector3 start = new Vector3(worldX, playerPos.y, (centerZ * cellSize) - size);
-            Vector3 end   = new Vector3(worldX, playerPos.y, (centerZ * cellSize) + size);
-
-            Gizmos.DrawLine(start, end);
-        }
-
-        // Draw horizontal lines
-        for (int z = -gridRadius; z <= gridRadius; z++)
-        {
-            float worldZ = (centerZ + z) * cellSize;
-
-            Vector3 start = new Vector3((centerX * cellSize) - size, playerPos.y, worldZ);
-            Vector3 end   = new Vector3((centerX * cellSize) + size, playerPos.y, worldZ);
-
-            Gizmos.DrawLine(start, end);
-        }
-
-        // Highlight current cell
-        Gizmos.color = Color.red;
-
-        Vector3 cellCenter = new Vector3(
-            (currentCell.x * cellSize) + cellSize * 0.5f,
-            playerPos.y,
-            (currentCell.y * cellSize) + cellSize * 0.5f
-        );
-
-        Gizmos.DrawWireCube(
-            cellCenter,
-            new Vector3(cellSize, 0.1f, cellSize)
-        );
+        seekingTarget = position;
+        SetState(BbegState.Seeking);
     }
 }

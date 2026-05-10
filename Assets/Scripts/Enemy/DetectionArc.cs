@@ -23,7 +23,6 @@ public class DetectionArc : MonoBehaviour
     {
         bool detected = DetectPlayer();
 
-
         if (detected && !playerInVision)
         {
             playerInVision = true;
