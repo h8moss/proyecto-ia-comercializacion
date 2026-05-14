@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using Pathfinding;
 using UnityEngine;
 
-[RequireComponent(typeof(AIPath))]
+
 [RequireComponent(typeof(GeneralEnemyRotation))]
+[RequireComponent(typeof(DetectionArc))]
 public class BbegBehaviour : MonoBehaviour
 {
     [SerializeField] private List<Transform> patrolPoints;
@@ -12,30 +13,45 @@ public class BbegBehaviour : MonoBehaviour
     [SerializeField] private float playerStaticTime;
     [SerializeField] private float cellSize = 10f; // world units
     [SerializeField] private float seekingSpeedMultiplier = 1.2f;
+    [SerializeField] private float seekingTurnSpeedMultiplier = 1.2f;
     [SerializeField] private float hearingThreshold = 3.0f;
+    [SerializeField] private float talkingCooldown = 5.0f;
+    [SerializeField] private GameObject talkingObj;
+
+    [SerializeField] private AIPath aStar;
 
 
     private Vector2Int currentCell;
     private float timeInCell = 0f;
     private BbegState state;
     private int currentPatrolTarget;
-    private AIPath aStar;
     private GeneralEnemyRotation rotation;
     private float initialSpeed;
+    private float initialRotationSpeed;
     private Vector3 seekingTarget;
+    private float currentTalkingCooldown;
     
     void Start()
     {
         // WorldEvents.OnSoundMade += HandleSoundMade;
         currentPatrolTarget = 0;
-        aStar = GetComponent<AIPath>();
         rotation = GetComponent<GeneralEnemyRotation>();
         initialSpeed = aStar.maxSpeed;
+        initialRotationSpeed = rotation.rotationSpeed;
+        currentTalkingCooldown = talkingCooldown;
+
         WorldEvents.OnSoundMade += HandleSoundMade;
+        GetComponent<DetectionArc>().OnPlayerDetected += OnPlayerDetected;
 
         // Start with patrol
         SetState(BbegState.Patrol);
         OnPatrolStart();
+    }
+
+    void OnDestroy()
+    {
+        WorldEvents.OnSoundMade -= HandleSoundMade;
+        GetComponent<DetectionArc>().OnPlayerDetected -= OnPlayerDetected;
     }
 
     void SetState(BbegState newState)
@@ -122,20 +138,30 @@ public class BbegBehaviour : MonoBehaviour
         aStar.destination = transform.position;
         StartCoroutine(ThinkingRoutine());
     }
-    void OnTalkingStart() {}
+    void OnTalkingStart()
+    {
+        aStar.destination = transform.position;
+        talkingObj.SetActive(true);
+    }
     void OnSeekingStart()
     {
         aStar.maxSpeed = initialSpeed * seekingSpeedMultiplier;
+        rotation.rotationSpeed = initialRotationSpeed * seekingTurnSpeedMultiplier;
+    
 
         aStar.destination = seekingTarget;
     }
 
     void OnPatrolEnd() {}
     void OnThinkingEnd() {}
-    void OnTalkingEnd() {}
+    void OnTalkingEnd()
+    {
+        talkingObj.SetActive(false);
+    }
     void OnSeekingEnd()
     {
         aStar.maxSpeed = initialSpeed;
+        rotation.rotationSpeed = initialRotationSpeed;
     }
 
     void PatrolUpdate() {
@@ -155,12 +181,12 @@ public class BbegBehaviour : MonoBehaviour
                 aStar.destination = target;
             }
         }
+        CheckScare();
         rotation.LookAt(target);
     }
     void SeekingUpdate()
     {
         float dst = Vector3.Distance(aStar.destination, transform.position);
-        Debug.Log(dst);
         if (dst < 1.0f)
         {
             SetState(BbegState.Thinking);
@@ -193,5 +219,52 @@ public class BbegBehaviour : MonoBehaviour
 
         seekingTarget = position;
         SetState(BbegState.Seeking);
+    }
+
+    void OnPlayerDetected(Vector3 playerPos)
+    {
+        seekingTarget = playerPos;
+        SetState(BbegState.Seeking);
+    }
+
+    void CheckScare()
+    {
+        currentTalkingCooldown -= Time.deltaTime;
+        if (currentTalkingCooldown > 0.0f) return;
+
+        currentTalkingCooldown = talkingCooldown;
+        var collisions = Physics2D.CircleCastAll(transform.position, 4.0f, Vector2.up);
+        List<ScareableEnemy> scareds = new();
+
+        foreach (var col in collisions)
+        {
+            if (col.collider.gameObject.TryGetComponent<ScareableEnemy>(out var scared))
+            {
+                if (!scared.IsScared)
+                    scareds.Add(scared);
+            }
+        }
+
+        Debug.Log(scareds.Count);
+        if (scareds.Count > 0 && Random.value < 0.5)
+        {
+            StartCoroutine(ScareCoroutine(scareds));
+        }
+    }
+
+    IEnumerator ScareCoroutine(List<ScareableEnemy> scareds)
+    {
+        SetState(BbegState.Talking);
+        yield return new WaitForSeconds(1+Random.value*2);
+        foreach (var scared in scareds)
+        {
+            scared.Scare();
+        }
+        SetState(BbegState.Patrol);
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, 4.0f);
     }
 }
