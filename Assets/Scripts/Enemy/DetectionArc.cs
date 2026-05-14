@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,9 +8,12 @@ public class DetectionArc : MonoBehaviour
     [SerializeField] private float angle;
     [SerializeField] private LayerMask visionObstacles;
 
-    public float Length { get => length; }
-    public float Angle { get => angle; }
+    public float Length { get => length; set => length = value; }
+    public float Angle { get => angle; set => angle = value; }
     public LayerMask VisionObstacles { get => visionObstacles; }
+
+    public Action<Vector3> OnPlayerDetected;
+    public Action<Vector3> OnPlayerHidden;
 
     public void SetDetectionField(float length, float angle)
     {
@@ -27,11 +31,13 @@ public class DetectionArc : MonoBehaviour
         {
             playerInVision = true;
             DetectionEvents.RaisePlayerDetected();
+            RaisePrivatePlayerDetected(PlayerLocator.Player.position);
         }
         else if (!detected && playerInVision)
         {
             playerInVision = false;
             DetectionEvents.RaisePlayerHidden();
+            RaisePrivatePlayerHidden(PlayerLocator.Player.position);
         }
     }
 
@@ -72,5 +78,14 @@ public class DetectionArc : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + leftDir * length);
         Gizmos.DrawLine(transform.position, transform.position + rightDir * length);
         Gizmos.DrawWireSphere(transform.position, length);
+    }
+
+    void RaisePrivatePlayerDetected(Vector3 position)
+    {
+        OnPlayerDetected?.Invoke(position);
+    }
+    void RaisePrivatePlayerHidden(Vector3 position) 
+    {
+        OnPlayerHidden?.Invoke(position);
     }
 }
