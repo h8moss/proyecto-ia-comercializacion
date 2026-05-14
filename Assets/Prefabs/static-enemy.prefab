@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 3085490593091688366}
   - component: {fileID: 1078444797964840094}
   - component: {fileID: 2494378760542948216}
+  - component: {fileID: 8032123301001845243}
+  - component: {fileID: 5158947262194315915}
   m_Layer: 0
   m_Name: static-enemy
   m_TagString: Untagged
@@ -154,6 +156,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GeneralEnemyRotation
   rotationSpeed: 90
   forwardAngleOffset: -90
+--- !u!114 &8032123301001845243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88569142269754918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a1aed00c3ad29c5d89d3918320074b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScareableEnemy
+  scareDuration: 10
+--- !u!114 &5158947262194315915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88569142269754918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 500d04a5e8e5ec483adb869ca191e113, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScaredArcMultiplier
+  lengthMultiplier: 1.5
+  angleMultiplier: 1.5
+  transitionDuration: 0.2
 --- !u!1 &1622971964564638837
 GameObject:
   m_ObjectHideFlags: 0

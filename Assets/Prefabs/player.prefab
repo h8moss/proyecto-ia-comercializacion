@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 783244346072368625}
   - component: {fileID: 6365460509926724290}
   - component: {fileID: 1894205794636392306}
+  - component: {fileID: 8418017712968498232}
   m_Layer: 6
   m_Name: player
   m_TagString: Untagged
@@ -171,6 +172,7 @@ MonoBehaviour:
   coinPrefab: {fileID: 8306465515549201878, guid: 4aef4ba5d64ed84ba84c24e316ff97f9, type: 3}
   fireReloadTime: 1
   fireForce: 5
+  maxCoinCount: 10
 --- !u!114 &1894205794636392306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +187,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerVisual
   animator: {fileID: 2125552159990092015}
   sprite: {fileID: 4381955267281132284}
-  allowDiagonal: 0
+  allowDiagonal: 1
+--- !u!114 &8418017712968498232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925184113960743666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cb7db288ff174403a9b5ccf684a0e98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StepsSound
+  stepLength: 2
+  stepLoudness: 5
 --- !u!1 &2755865373617830889
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,7 +282,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1999047399
   m_SortingLayer: 3
-  m_SortingOrder: 5
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: -8927612033162531626, guid: d0bdfb1e4d49de57e96c4650c41b057f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
