@@ -18,6 +18,8 @@ GameObject:
   - component: {fileID: 3674323792928399855}
   - component: {fileID: 286246599313199450}
   - component: {fileID: 8671821097177214040}
+  - component: {fileID: 1198459538108019362}
+  - component: {fileID: 775715442248484216}
   m_Layer: 0
   m_Name: PatrolEnemy
   m_TagString: Untagged
@@ -239,6 +241,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PatrolEnemyVisuals
   animator: {fileID: 1120546942999539987}
+--- !u!114 &1198459538108019362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2156785673176854355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a1aed00c3ad29c5d89d3918320074b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScareableEnemy
+  scareDuration: 10
+--- !u!114 &775715442248484216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2156785673176854355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 500d04a5e8e5ec483adb869ca191e113, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScaredArcMultiplier
+  lengthMultiplier: 1.5
+  angleMultiplier: 1.5
+  transitionDuration: 0.2
 --- !u!1 &3065711520218335429
 GameObject:
   m_ObjectHideFlags: 0
