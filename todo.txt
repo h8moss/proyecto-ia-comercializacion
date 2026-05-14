@@ -1,0 +1,17 @@
+Visuals:
+  [ ] Fuente en todo el juego
+  [ ] Variaciones de Sprites
+
+Game:
+  [ ] Enemigo 3
+  [ ] Recoger monedas
+  [ ] Pausa con esc
+  [ ] Carros
+  [ ] Temporizador?
+
+Design:
+  [ ] Nivel 3 y 4
+  [ ] Colocar enemigos
+  [ ] Objetivos del nivel
+
+
