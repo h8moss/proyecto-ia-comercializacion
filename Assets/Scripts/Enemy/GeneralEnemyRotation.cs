@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GeneralEnemyRotation : MonoBehaviour
 {
-    [SerializeField] private float rotationSpeed = 90f;
+    [SerializeField] public float rotationSpeed = 90f;
     [SerializeField] private float forwardAngleOffset = -90f;
  
     private Quaternion targetRotation;
@@ -12,6 +12,7 @@ public class GeneralEnemyRotation : MonoBehaviour
         get => targetRotation;
         set => targetRotation = value;
     }
+
 
     void Start()
     {
