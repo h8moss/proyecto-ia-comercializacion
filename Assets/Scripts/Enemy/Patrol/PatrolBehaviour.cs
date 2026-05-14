@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(AIPath))]
 [RequireComponent(typeof(GeneralEnemyRotation))]
 [RequireComponent(typeof(OceanManager))]
+[RequireComponent(typeof(ScareableEnemy))]
 public class PatrolBehaviour : MonoBehaviour
 {
 
@@ -13,7 +14,6 @@ public class PatrolBehaviour : MonoBehaviour
     [SerializeField] private float maxHearingDistance;
     [SerializeField] private float waitingLookInterval = 4f;
     [SerializeField] private float waitingLookAngleRange = 90f;
-
 
     private int currentPatrolTarget;
     private PatrolState state;
@@ -23,6 +23,7 @@ public class PatrolBehaviour : MonoBehaviour
     private float waitingLookTimer = 0f;
     private Quaternion waitingInitialRotation;
     private Vector3 investigationTarget;
+    private ScareableEnemy scare;
     
 
     void SetState(PatrolState newState)
@@ -67,6 +68,8 @@ public class PatrolBehaviour : MonoBehaviour
         aStar = GetComponent<AIPath>();
         rotation = GetComponent<GeneralEnemyRotation>();
         ocean = GetComponent<OceanManager>();
+        scare = GetComponent<ScareableEnemy>();
+        scare.ScaredChanged += OnScaredChanged;
 
         // Start with patrol
         SetState(PatrolState.Patrol);
@@ -129,7 +132,8 @@ public class PatrolBehaviour : MonoBehaviour
                 + 0.4*(1-ocean.C) 
                 + 0.25*ocean.N 
                 + 0.2*ocean.O 
-                + 0.1*ocean.E;
+                + 0.1*ocean.E
+                + 0.4*scare.Multiplier;
             if (shouldWait) SetState(PatrolState.Waiting);
             else
             {
@@ -154,7 +158,7 @@ public class PatrolBehaviour : MonoBehaviour
     void WaitingUpdate()
     {
         float lookDrive = (ocean.O + ocean.N) / 2f;
-        if (lookDrive < 0.3f) return;
+        if (lookDrive < 0.3f && !scare.IsScared) return;
 
         waitingLookTimer -= Time.deltaTime;
         if (waitingLookTimer <= 0f)
@@ -169,6 +173,7 @@ public class PatrolBehaviour : MonoBehaviour
     void OnDestroy()
     {
         WorldEvents.OnSoundMade -= HandleSoundMade;
+        scare.ScaredChanged -= OnScaredChanged;
     }
 
     void HandleSoundMade(Vector2 position, float initialLoudness)
@@ -179,6 +184,7 @@ public class PatrolBehaviour : MonoBehaviour
         float perceivedLoudness = initialLoudness / (dst * dst);
 
         float threshold = 0.5f - (ocean.Neuroticism * 0.4f);
+        if (scare.IsScared) threshold *= 0.5f;
         if (perceivedLoudness < threshold) return;
         if (Random.value >= ocean.Openness) return; 
 
@@ -198,12 +204,19 @@ public class PatrolBehaviour : MonoBehaviour
             + 1.0f*(1-ocean.E))
             * Random.Range(0.75f, 1.25f),
         0.5f,
-        8.0f);
+        8.0f - scare.Multiplier * 4);
 
         Debug.Log("Waiting: " + waitTime);
 
         yield return new WaitForSeconds(waitTime);
 
         SetState(PatrolState.Patrol);
+    }
+
+    private void OnScaredChanged(bool scared)
+    {
+        float delta = aStar.maxSpeed / 3.0f;
+        if (scared) aStar.maxSpeed += delta;
+        else aStar.maxSpeed -= delta;
     }
 }

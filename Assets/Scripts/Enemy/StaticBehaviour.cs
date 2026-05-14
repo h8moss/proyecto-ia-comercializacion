@@ -1,8 +1,9 @@
 using System;
 using UnityEngine;
-
 [RequireComponent(typeof(OceanManager))]
 [RequireComponent(typeof(GeneralEnemyRotation))]
+
+[RequireComponent(typeof(ScareableEnemy))]
 public class StaticBehaviour : MonoBehaviour
 {
     [Header("Sound Detection")]
@@ -22,11 +23,13 @@ public class StaticBehaviour : MonoBehaviour
     private float idleLookTimer = 0f;
     private bool isAlert = false;
     private Quaternion defaultRotation;
+    private ScareableEnemy scare;
 
     void Start()
     {
         ocean = GetComponent<OceanManager>();
         rotator = GetComponent<GeneralEnemyRotation>();
+        scare = GetComponent<ScareableEnemy>();
         WorldEvents.OnSoundMade += HandleSoundMade;
         idleLookTimer = GetNextLookInterval();
 
@@ -61,7 +64,7 @@ public class StaticBehaviour : MonoBehaviour
     void UpdateIdle()
     {
         float lookDrive = (ocean.Openness + ocean.Neuroticism) / 2f;
-        if (lookDrive < 0.3f) return;
+        if (lookDrive < 0.3f && !scare.IsScared) return;
 
         idleLookTimer -= Time.deltaTime;
         if (idleLookTimer <= 0f)
