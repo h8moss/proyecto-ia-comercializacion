@@ -267,4 +267,13 @@ public class BbegBehaviour : MonoBehaviour
     {
         Gizmos.DrawWireSphere(transform.position, 4.0f);
     }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent<CoinPickupInteraction>(out var coin))
+        {
+            SetState(BbegState.Thinking);
+            coin.OnBBEGInteracted();
+        }
+    }
 }
