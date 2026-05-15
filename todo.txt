@@ -1,5 +1,5 @@
 Visuals:
-  [ ] Fuente en todo el juego
+  [x] Fuente en todo el juego
   [ ] Variaciones de Sprites
 
 Game:
