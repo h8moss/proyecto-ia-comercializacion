@@ -1,6 +1,6 @@
 Visuals:
   [x] Fuente en todo el juego
-  [ ] Variaciones de Sprites
+  [x] Variaciones de Sprites
 
 Game:
   [ ] Enemigo 3
