@@ -59,4 +59,10 @@ public class PlayerThrowCoin : MonoBehaviour
         yield return new WaitForSeconds(fireReloadTime);
         canFire = true;
     }
+
+    public void PickedupCoin()
+    {
+        coinCount++;
+        coinsChanged.Invoke(coinCount);
+    }
 }
