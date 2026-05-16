@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
         playerDetection.OnDeath += OnDeath;
     }
 
-    void Oestroy()
+    void OnDestroy()
     {
         playerDetection.OnDeath -= OnDeath;
     }
