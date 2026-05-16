@@ -5,7 +5,7 @@ Visuals:
 Game:
   [ ] Enemigo 3
   [x] Recoger monedas
-  [ ] Pausa con esc
+  [x] Pausa con esc
   [ ] Carros
   [ ] Temporizador?
   [ ] Tutorial?
