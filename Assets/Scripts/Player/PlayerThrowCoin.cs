@@ -32,7 +32,7 @@ public class PlayerThrowCoin : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && canFire && coinCount > 0)
+        if (Input.GetButtonDown("Fire1") && canFire && coinCount > 0 && !PauseMenu.Paused)
         {
             StartCoroutine(Fire());
         }
