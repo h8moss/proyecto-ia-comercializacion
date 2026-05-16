@@ -4,10 +4,11 @@ Visuals:
 
 Game:
   [ ] Enemigo 3
-  [ ] Recoger monedas
+  [x] Recoger monedas
   [ ] Pausa con esc
   [ ] Carros
   [ ] Temporizador?
+  [ ] Tutorial?
 
 Design:
   [ ] Nivel 3 y 4
