@@ -6,7 +6,7 @@ Game:
   [ ] Enemigo 3
   [x] Recoger monedas
   [x] Pausa con esc
-  [ ] Carros
+  [x] Carros
   [ ] Temporizador?
   [ ] Tutorial?
 

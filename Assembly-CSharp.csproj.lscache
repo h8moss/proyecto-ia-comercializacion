@@ -53,6 +53,11 @@ TemporaryDependencyNodeTargetIdentifier=netstandard2.1
 Assets/Scripts/Enemy/bbeg/
  BbegBehaviour.cs
  BbegState.cs
+Assets/Scripts/Enemy/Car/
+ CarBehaviour.cs
+ CarLifetimeTracker.cs
+ CarSpawner.cs
+ RandomCarSprite.cs
 Assets/Scripts/Enemy/
  DetectionArc.cs
  DetectionArcVisualizer.cs

@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 8671821097177214040}
   - component: {fileID: 1198459538108019362}
   - component: {fileID: 775715442248484216}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PatrolEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ MonoBehaviour:
   traversableTags: -1
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
-    value: -1
+    value: 1
 --- !u!114 &2212912058924420403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 1613942348909128682}
   - component: {fileID: 1120546942999539987}
   - component: {fileID: 3436009059102490271}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
