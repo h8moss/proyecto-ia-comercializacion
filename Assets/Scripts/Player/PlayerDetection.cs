@@ -9,6 +9,7 @@ public class PlayerDetection : MonoBehaviour
     [SerializeField] private float detectionRate;
     [SerializeField] private float healDelay;
     [SerializeField] private float healRate;
+    [SerializeField] private bool godMode;
 
     private int detectionCount = 0;
     private float health;
@@ -57,6 +58,7 @@ public class PlayerDetection : MonoBehaviour
 
     void Update()
     {
+        if (godMode) return;
         Health -= detectionCount * detectionRate * Time.deltaTime;
         if (canHeal)
         {

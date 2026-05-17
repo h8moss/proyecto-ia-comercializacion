@@ -30,6 +30,7 @@ public class PlayerVisual : MonoBehaviour
     void Update()
     {
         if (isDead) return;
+        if (PauseMenu.Paused) return;
         Vector2 movement = playerMovement.Movement;
         if (movement.magnitude > 0.1f)
         {
