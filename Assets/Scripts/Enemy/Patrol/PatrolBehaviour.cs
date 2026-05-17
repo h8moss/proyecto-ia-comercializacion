@@ -99,7 +99,7 @@ public class PatrolBehaviour : MonoBehaviour
     {
         Debug.Log("Patrol");
         // TODO: A* May not be needed on normal patrol behaviour.
-        Vector3 target = patrolPoints[currentPatrolTarget].position;
+            Vector3 target = patrolPoints[currentPatrolTarget].position;
         aStar.destination = target;
     }
     void OnPatrolEnd() {}
