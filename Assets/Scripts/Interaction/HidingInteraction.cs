@@ -9,6 +9,7 @@ public class HidingInteraction : MonoBehaviour
     [SerializeField] private Transform bottomExitPoint;
     private Interactable interactable;
     private bool isHiding = false;
+    public bool IsHiding => isHiding;   // ← getter público, sigue siendo privada por dentro
     private bool canExit = false;
 
     void Start()
@@ -53,6 +54,21 @@ public class HidingInteraction : MonoBehaviour
         Transform player = PlayerLocator.Player;
         player.gameObject.SetActive(false);
         isHiding = true;
+        canExit = false;
+    }
+
+    /// <summary>
+    /// Forza la salida del escondite desde fuera (ej: cuando un enemigo descubre al jugador).
+    /// Reactiva al jugador y resetea el estado del escondite.
+    /// </summary>
+    public void ForceExit()
+    {
+        if (!isHiding) return;
+
+        GameObject player = PlayerLocator.Player.gameObject;
+        player.SetActive(true);
+        player.transform.position = transform.position;
+        isHiding = false;
         canExit = false;
     }
 }

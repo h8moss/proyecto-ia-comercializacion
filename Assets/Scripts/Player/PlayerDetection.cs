@@ -73,8 +73,9 @@ public class PlayerDetection : MonoBehaviour
 
     void OnHidden()
     {
-        detectionCount--;
-        StartCoroutine(ResumeHealing());
+         detectionCount--;
+         if (gameObject.activeInHierarchy)   // ← solo agregar este if
+            StartCoroutine(ResumeHealing());
     }
 
     IEnumerator ResumeHealing()
