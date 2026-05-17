@@ -7,7 +7,7 @@ Game:
   [x] Recoger monedas
   [x] Pausa con esc
   [x] Carros
-  [ ] Doom Health
+  [x] Doom Health
   [ ] Temporizador?
   [ ] Tutorial?
 
