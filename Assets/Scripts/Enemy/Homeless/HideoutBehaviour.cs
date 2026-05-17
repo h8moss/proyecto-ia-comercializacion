@@ -4,17 +4,10 @@ using Pathfinding;
 using UnityEngine;
 
 /// <summary>
-/// HideoutBehaviour.cs — Agrega la búsqueda en escondites al enemigo patrullador.
+/// HideoutBehaviour.cs — Búsqueda en escondites cuando el enemigo pierde de vista al jugador.
 ///
-/// CÓMO ENCAJA CON EL CÓDIGO EXISTENTE:
-///   - Se suscribe a DetectionEvents.OnPlayerHidden (ya existe en DetectionArc.cs)
-///   - Usa el mismo AIPath que ya usa PatrolBehaviour
-///   - Usa GeneralEnemyRotation igual que PatrolBehaviour
-///   - NO modifica PatrolBehaviour ni ningún otro script del equipo
-///
-/// SETUP en Unity:
-///   1. Agrega este componente al GameObject del Vagabundo.
-///   2. Asigna los escondites (GameObjects con HidingInteraction) en el Inspector.
+/// Se suscribe a DetectionEvents.OnPlayerHidden (de DetectionArc.cs).
+/// Usa VagabundoHelper para la verificación de jugador escondido y la muerte.
 /// </summary>
 [RequireComponent(typeof(AIPath))]
 [RequireComponent(typeof(GeneralEnemyRotation))]
@@ -56,7 +49,6 @@ public class HideoutBehaviour : MonoBehaviour
         _rotation = GetComponent<GeneralEnemyRotation>();
         _ocean    = GetComponent<OceanManager>();
 
-        // Escuchar cuando el jugador sale del cono de visión
         DetectionEvents.OnPlayerHidden += OnPlayerHidden;
     }
 
@@ -80,40 +72,31 @@ public class HideoutBehaviour : MonoBehaviour
 
         if (!_inspecting && arrived)
         {
-            // Llegó — empezar inspección
             StartInspecting();
         }
         else if (!_inspecting)
         {
-            // Caminando hacia el escondite
             _rotation.LookAt(_currentTarget.position);
         }
         else
         {
-            // Inspeccionando
             _inspectTimer -= Time.deltaTime;
 
-            // Mirar a los lados mientras inspecciona (si tiene personalidad curiosa)
             float curiosity = (_ocean.O + _ocean.N) / 2f;
             if (Random.value < curiosity * Time.deltaTime * 0.5f)
                 _rotation.LookAtRandomAngle(transform.rotation, 60f);
 
-            // ¿El jugador está aquí escondido? → INSTA LOSS
-           if (IsPlayerHidingHere(_currentTarget))
+            // ¿El jugador está aquí escondido? → INSTA LOSS (lógica en VagabundoHelper)
+            if (VagabundoHelper.IsPlayerHidingHere(_currentTarget))
             {
-                Debug.Log("[Vagabundo] ¡Jugador encontrado!");
-                
-                HidingInteraction hiding = _currentTarget.GetComponent<HidingInteraction>();
-                if (hiding != null) hiding.ForceExit();
-                
-                StartCoroutine(KillPlayerWithDelay());
-                StopSearch();  // ← solo en HideoutBehaviour, quítalo en PatrolHomeless
+                Debug.Log("[HideoutBehaviour] ¡Jugador encontrado en escondite: " + _currentTarget.name + "!");
+                StartCoroutine(VagabundoHelper.KillPlayer(_currentTarget));
+                StopSearch();
                 return;
             }
 
             if (_inspectTimer <= 0f)
             {
-                // No estaba aquí — ir al siguiente
                 _searchedCount++;
                 _currentTarget = null;
                 _inspecting    = false;
@@ -129,16 +112,11 @@ public class HideoutBehaviour : MonoBehaviour
     //  LÓGICA PRINCIPAL
     // ══════════════════════════════════════════════════════════════════════
 
-    /// <summary>
-    /// Llamado por DetectionEvents cuando el jugador sale del cono de visión.
-    /// Decide si vale la pena buscar en escondites según la personalidad OCEAN.
-    /// </summary>
     void OnPlayerHidden()
     {
         if (_isSearching) return;
 
-        // Conscientiousness alta → más probabilidad de ir a revisar
-        // Openness alta          → más curioso, también revisa
+        // Probabilidad de buscar según personalidad OCEAN
         float searchChance = 0.3f + _ocean.C * 0.5f + _ocean.O * 0.2f;
 
         if (Random.value > searchChance)
@@ -158,7 +136,7 @@ public class HideoutBehaviour : MonoBehaviour
         _searchedCount = 0;
         _inspecting    = false;
 
-        // Orden aleatorio de escondites a revisar
+        // Orden aleatorio de escondites
         _searchQueue = new List<Transform>(hideouts);
         for (int i = 0; i < _searchQueue.Count; i++)
         {
@@ -193,7 +171,7 @@ public class HideoutBehaviour : MonoBehaviour
     {
         _inspecting   = true;
         _inspectTimer = inspectDuration;
-        _aStar.destination = transform.position; // Detener movimiento
+        _aStar.destination = transform.position;
         Debug.Log("[HideoutBehaviour] Inspeccionando: " + _currentTarget.name);
     }
 
@@ -203,17 +181,6 @@ public class HideoutBehaviour : MonoBehaviour
         _currentTarget = null;
         _inspecting    = false;
         Debug.Log("[HideoutBehaviour] Búsqueda terminada, volviendo a patrulla.");
-    }
-
-    // ══════════════════════════════════════════════════════════════════════
-    //  DETECCIÓN EN ESCONDITE
-    // ══════════════════════════════════════════════════════════════════════
-
-    bool IsPlayerHidingHere(Transform hideout)
-    {
-        HidingInteraction hiding = hideout.GetComponent<HidingInteraction>();
-        if (hiding == null) return false;
-        return hiding.IsHiding;
     }
 
     // ══════════════════════════════════════════════════════════════════════
@@ -236,16 +203,5 @@ public class HideoutBehaviour : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(_currentTarget.position, 0.3f);
         }
-    }
-
-    IEnumerator KillPlayerWithDelay()
-    {
-        // Esperar un frame para que el Animator se inicialice tras el ForceExit
-        yield return null;
-        yield return new WaitForSeconds(0.1f);
-        
-        // Ahora sí drenar la vida
-        for (int i = 0; i < 100; i++)
-            DetectionEvents.RaisePlayerDetected();
     }
 }

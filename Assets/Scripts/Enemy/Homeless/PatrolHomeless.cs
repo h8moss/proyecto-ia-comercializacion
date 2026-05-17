@@ -4,17 +4,13 @@ using Pathfinding;
 using UnityEngine;
 
 /// <summary>
-/// PatrolHomeless.cs — Patrullaje específico del Vagabundo entre escondites.
+/// PatrolHomeless.cs — Patrullaje del Vagabundo entre escondites.
 ///
 /// COMPORTAMIENTO:
 ///   - Va a escondites en orden aleatorio
 ///   - Al llegar: a veces inspecciona, a veces pasa de largo (depende si lo revisó recientemente)
-///   - Si inspecciona y el jugador está dentro → insta loss
+///   - Si inspecciona y el jugador está dentro → insta loss (lógica en VagabundoHelper)
 ///   - Reacciona a sonidos (igual que PatrolBehaviour original)
-///   - Si ve al jugador correr y lo pierde, prioriza el escondite más cercano a esa posición
-///     (esto lo maneja HideoutBehaviour, no este script)
-///
-/// NO USA PatrolBehaviour. Reemplázalo en el GameObject Vagabundo.
 /// </summary>
 [RequireComponent(typeof(AIPath))]
 [RequireComponent(typeof(GeneralEnemyRotation))]
@@ -22,7 +18,7 @@ using UnityEngine;
 public class PatrolHomeless : MonoBehaviour
 {
     [Header("Escondites a patrullar")]
-    [Tooltip("Lista de escondites entre los que patrulla. Pueden ser los mismos que en HideoutBehaviour.")]
+    [Tooltip("Lista de escondites entre los que patrulla.")]
     [SerializeField] private List<Transform> hideouts;
 
     [Header("Inspección")]
@@ -69,10 +65,8 @@ public class PatrolHomeless : MonoBehaviour
         _rotation = GetComponent<GeneralEnemyRotation>();
         _ocean    = GetComponent<OceanManager>();
 
-        // Escuchar sonidos del mundo
         WorldEvents.OnSoundMade += HandleSoundMade;
 
-        // Empezar yendo a un escondite aleatorio
         PickRandomHideout();
     }
 
@@ -83,7 +77,6 @@ public class PatrolHomeless : MonoBehaviour
 
     void Update()
     {
-        // Actualizar memoria (los escondites se "olvidan" con el tiempo)
         UpdateMemory();
 
         switch (_state)
@@ -106,17 +99,13 @@ public class PatrolHomeless : MonoBehaviour
             return;
         }
 
-        // Mirar hacia el destino
         _rotation.LookAt(_currentTarget.position);
 
         float dist = Vector2.Distance(transform.position, _currentTarget.position);
-
-        // Llegó si: está dentro del radio O el AIPath dice que llegó
         bool arrived = dist <= arrivalDistance || _aStar.reachedDestination;
 
         if (arrived)
         {
-            // ¿Detenerse a inspeccionar o pasar de largo?
             bool wasVisitedRecently = _recentlyVisited.ContainsKey(_currentTargetIndex);
             float adjustedChance = inspectChance + _ocean.C * 0.2f;
 
@@ -136,26 +125,20 @@ public class PatrolHomeless : MonoBehaviour
     {
         _inspectTimer -= Time.deltaTime;
 
-        // Mirar hacia los lados mientras inspecciona (curiosidad según personalidad)
         float curiosity = (_ocean.O + _ocean.N) / 2f;
         if (curiosity > 0.3f && Random.value < curiosity * Time.deltaTime * 0.5f)
             _rotation.LookAtRandomAngle(transform.rotation, 60f);
 
-        // ¿El jugador está escondido aquí? → INSTA LOSS
-        if (IsPlayerHidingHere(_currentTarget))
+        // ¿El jugador está aquí? → INSTA LOSS
+        if (VagabundoHelper.IsPlayerHidingHere(_currentTarget))
         {
-            Debug.Log("[Vagabundo] ¡Jugador encontrado!");
-            
-            HidingInteraction hiding = _currentTarget.GetComponent<HidingInteraction>();
-            if (hiding != null) hiding.ForceExit();
-            
-            StartCoroutine(KillPlayerWithDelay());
+            Debug.Log("[VagabundoPatrol] ¡Jugador encontrado durante patrulla! INSTA LOSS");
+            StartCoroutine(VagabundoHelper.KillPlayer(_currentTarget));
             return;
         }
 
         if (_inspectTimer <= 0f)
         {
-            // Termina inspección, marca como visitado y sigue
             MarkAsVisited(_currentTargetIndex);
             PickRandomHideout();
         }
@@ -165,20 +148,15 @@ public class PatrolHomeless : MonoBehaviour
     {
         _rotation.LookAt(_investigationPoint);
 
-        // Revisar si pasa cerca de algún escondite con jugador escondido
+        // Si pasa cerca de un escondite con jugador dentro → te encuentra
         foreach (var h in hideouts)
         {
             if (h == null) continue;
             float distToHide = Vector2.Distance(transform.position, h.position);
-            if (distToHide <= arrivalDistance && IsPlayerHidingHere(h))
+            if (distToHide <= arrivalDistance && VagabundoHelper.IsPlayerHidingHere(h))
             {
                 Debug.Log("[VagabundoPatrol] ¡Te encontró durante investigación de sonido!");
-
-                HidingInteraction hiding = h.GetComponent<HidingInteraction>();
-                if (hiding != null) hiding.ForceExit();
-
-                for (int i = 0; i < 100; i++)
-                    DetectionEvents.RaisePlayerDetected();
+                StartCoroutine(VagabundoHelper.KillPlayer(h));
                 return;
             }
         }
@@ -204,7 +182,6 @@ public class PatrolHomeless : MonoBehaviour
             return;
         }
 
-        // Elige uno aleatorio diferente al actual (si hay más de uno)
         int newIndex;
         if (hideouts.Count == 1)
         {
@@ -228,7 +205,7 @@ public class PatrolHomeless : MonoBehaviour
     {
         _state         = VagabundoState.Inspecting;
         _inspectTimer  = inspectDuration;
-        _aStar.destination = transform.position; // Detenerse
+        _aStar.destination = transform.position;
         Debug.Log("[VagabundoPatrol] Inspeccionando: " + _currentTarget.name);
     }
 
@@ -255,17 +232,6 @@ public class PatrolHomeless : MonoBehaviour
 
         foreach (int key in toRemove)
             _recentlyVisited.Remove(key);
-    }
-
-    // ══════════════════════════════════════════════════════════════════════
-    //  DETECCIÓN
-    // ══════════════════════════════════════════════════════════════════════
-
-    bool IsPlayerHidingHere(Transform hideout)
-    {
-        HidingInteraction hiding = hideout.GetComponent<HidingInteraction>();
-        if (hiding == null) return false;
-        return hiding.IsHiding;
     }
 
     // ══════════════════════════════════════════════════════════════════════
@@ -312,15 +278,5 @@ public class PatrolHomeless : MonoBehaviour
 
         Gizmos.color = new Color(1f, 1f, 0f, 0.15f);
         Gizmos.DrawWireSphere(transform.position, maxHearingDistance);
-    }
-    IEnumerator KillPlayerWithDelay()
-    {
-        // Esperar un frame para que el Animator se inicialice tras el ForceExit
-        yield return null;
-        yield return new WaitForSeconds(0.1f);
-        
-        // Ahora sí drenar la vida
-        for (int i = 0; i < 100; i++)
-            DetectionEvents.RaisePlayerDetected();
     }
 }
