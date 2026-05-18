@@ -3536,6 +3536,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: static-enemy (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2146615900669833461, guid: 9dcb4c3843b6782b2902b5db543d11d9, type: 3}
+      propertyPath: seed
+      value: 2222
+      objectReference: {fileID: 0}
     - target: {fileID: 2684371126355737169, guid: 9dcb4c3843b6782b2902b5db543d11d9, type: 3}
       propertyPath: angle
       value: 25
@@ -5015,6 +5019,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: static-enemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2146615900669833461, guid: 9dcb4c3843b6782b2902b5db543d11d9, type: 3}
+      propertyPath: seed
+      value: 1111
+      objectReference: {fileID: 0}
     - target: {fileID: 2684371126355737169, guid: 9dcb4c3843b6782b2902b5db543d11d9, type: 3}
       propertyPath: angle
       value: 25
@@ -5450,6 +5458,10 @@ PrefabInstance:
     - target: {fileID: 2156785673176854355, guid: 52455ee92e23a66a194bbc3534754882, type: 3}
       propertyPath: m_Name
       value: p4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5344080323108915784, guid: 52455ee92e23a66a194bbc3534754882, type: 3}
+      propertyPath: seed
+      value: 3938
       objectReference: {fileID: 0}
     - target: {fileID: 6111692764292233092, guid: 52455ee92e23a66a194bbc3534754882, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15782,6 +15794,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: p2
       objectReference: {fileID: 0}
+    - target: {fileID: 5344080323108915784, guid: 52455ee92e23a66a194bbc3534754882, type: 3}
+      propertyPath: seed
+      value: 4213
+      objectReference: {fileID: 0}
     - target: {fileID: 6111692764292233092, guid: 52455ee92e23a66a194bbc3534754882, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.81
@@ -16157,6 +16173,10 @@ PrefabInstance:
     - target: {fileID: 2156785673176854355, guid: 52455ee92e23a66a194bbc3534754882, type: 3}
       propertyPath: m_Name
       value: p3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5344080323108915784, guid: 52455ee92e23a66a194bbc3534754882, type: 3}
+      propertyPath: seed
+      value: 3654
       objectReference: {fileID: 0}
     - target: {fileID: 6111692764292233092, guid: 52455ee92e23a66a194bbc3534754882, type: 3}
       propertyPath: m_LocalPosition.x
@@ -50540,6 +50560,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: p1
       objectReference: {fileID: 0}
+    - target: {fileID: 5344080323108915784, guid: 52455ee92e23a66a194bbc3534754882, type: 3}
+      propertyPath: seed
+      value: 1232
+      objectReference: {fileID: 0}
     - target: {fileID: 6111692764292233092, guid: 52455ee92e23a66a194bbc3534754882, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.5554592
@@ -51125,6 +51149,10 @@ PrefabInstance:
     - target: {fileID: 88569142269754918, guid: 9dcb4c3843b6782b2902b5db543d11d9, type: 3}
       propertyPath: m_Name
       value: static-enemy (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2146615900669833461, guid: 9dcb4c3843b6782b2902b5db543d11d9, type: 3}
+      propertyPath: seed
+      value: 3333
       objectReference: {fileID: 0}
     - target: {fileID: 2684371126355737169, guid: 9dcb4c3843b6782b2902b5db543d11d9, type: 3}
       propertyPath: angle
