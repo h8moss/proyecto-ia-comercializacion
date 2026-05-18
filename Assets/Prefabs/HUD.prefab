@@ -242,7 +242,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8938307167955764174
 RectTransform:
   m_ObjectHideFlags: 0
@@ -300,6 +300,100 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &4636252403946426791
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7185124633510780153}
+  - component: {fileID: 6758572987011808869}
+  - component: {fileID: 7567562192876772917}
+  - component: {fileID: 2140179882529108195}
+  m_Layer: 0
+  m_Name: doom-health
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7185124633510780153
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4636252403946426791}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.1400758, y: 1.1400758, z: 1.1400758}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 858640396232654299}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 66, y: 60.3}
+  m_SizeDelta: {x: 100, y: 109.0478}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &6758572987011808869
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4636252403946426791}
+  m_CullTransparentMesh: 1
+--- !u!114 &7567562192876772917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4636252403946426791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -3345372996741801433, guid: ac3cb8615551253939efc4e8333ed5c9, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 1
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2140179882529108195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4636252403946426791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2acf18ccea0945035b5a9ec7a08a90a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoomHealthIndicator
+  healthImages:
+  - {fileID: 8621344040530166425, guid: 12888584a30d84ea6a44c78e1e107e37, type: 3}
+  - {fileID: -4731881043149729891, guid: 78639fc17bf1b0eb6a3cf683018d0cd9, type: 3}
+  - {fileID: 7121101948937865612, guid: 2f79bfe95d2d6c499b1ede9edae7ffe5, type: 3}
+  - {fileID: 6432970803819977934, guid: 1e6f084d999ab77d38f682e3e475f1d4, type: 3}
+  - {fileID: -3345372996741801433, guid: ac3cb8615551253939efc4e8333ed5c9, type: 3}
 --- !u!1 &5331170502683112473
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,6 +427,7 @@ RectTransform:
   m_Children:
   - {fileID: 8938307167955764174}
   - {fileID: 2162600052041685045}
+  - {fileID: 7185124633510780153}
   - {fileID: 4589764033952071248}
   - {fileID: 134914508948037873}
   - {fileID: 6729553759580650931}
@@ -425,7 +520,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2162600052041685045
 RectTransform:
   m_ObjectHideFlags: 0
@@ -680,7 +775,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 116, y: -95}
+  m_AnchoredPosition: {x: 116, y: -41}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9054869092236292658

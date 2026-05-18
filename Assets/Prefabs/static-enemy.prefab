@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 8032123301001845243}
   - component: {fileID: 5158947262194315915}
   - component: {fileID: 8305113295505248231}
+  - component: {fileID: 2146615900669833461}
   m_Layer: 8
   m_Name: static-enemy
   m_TagString: Untagged
@@ -200,6 +201,19 @@ MonoBehaviour:
   ChildAProbability: 0.5
   childA: {fileID: 6783807081648748803}
   childB: {fileID: 7179312110652526700}
+--- !u!114 &2146615900669833461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88569142269754918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c1e843ff5071bf35875b76f47bd78f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OceanRandomizer
+  seed: 0
 --- !u!1 &6783807081648748803
 GameObject:
   m_ObjectHideFlags: 0
