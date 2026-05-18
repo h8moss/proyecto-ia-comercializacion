@@ -3,7 +3,7 @@ Visuals:
   [x] Variaciones de Sprites
 
 Game:
-  [ ] Enemigo 3
+  [x] Enemigo 3
   [x] Recoger monedas
   [x] Pausa con esc
   [x] Carros
