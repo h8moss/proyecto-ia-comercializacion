@@ -286,6 +286,7 @@ GameObject:
   - component: {fileID: 7854527905369635374}
   - component: {fileID: 2780639613212103770}
   - component: {fileID: 258374369882117640}
+  - component: {fileID: 8985952903097345852}
   m_Layer: 3
   m_Name: HidingObject
   m_TagString: Untagged
@@ -436,6 +437,18 @@ MonoBehaviour:
   normalSprite: {fileID: -5082740649671923913, guid: 75a3aaea55237c9969c679f60f5602e4, type: 3}
   hidingSprite: {fileID: -7737138210009682322, guid: 1e697a1ba1f42511ab26575c1c097388, type: 3}
   sprite: {fileID: 241549408010602283}
+--- !u!114 &8985952903097345852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5826059394354277344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3945abbcdb9dfbea897ae58b2eb0344, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HidingRegistration
 --- !u!1 &6962206450702540126
 GameObject:
   m_ObjectHideFlags: 0
