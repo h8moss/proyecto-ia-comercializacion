@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class PauseMenu : MonoBehaviour
 {
+    // Reference to the pause menu UI panel
     [SerializeField] private GameObject MenuPause;
 
     private static bool paused = false;
@@ -11,6 +11,7 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
+        // Toggle pause when the Pause button is pressed
         if (Input.GetButtonDown("Pause"))
         {
             if (paused)
@@ -20,6 +21,7 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    // Pauses the game and shows the pause menu
     public void Pausa()
     {
         paused = true;
@@ -27,6 +29,7 @@ public class PauseMenu : MonoBehaviour
         MenuPause.SetActive(true);
     }
 
+    // Resumes the game and hides the pause menu
     public void Resume()
     {
         paused = false;
@@ -34,8 +37,11 @@ public class PauseMenu : MonoBehaviour
         MenuPause.SetActive(false);
     }
 
+    // Returns to the main menu and resets the game state
     public void LoadMenu()
     {
-        SceneManager.LoadScene(0);
+        Time.timeScale = 1f;
+        paused = false;
+        SceneManager.LoadScene("SelectGame");
     }
 }
