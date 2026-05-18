@@ -168,7 +168,7 @@ MonoBehaviour:
   angle: 11.5
   visionObstacles:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 72
 --- !u!114 &2455470074845499725
 MonoBehaviour:
   m_ObjectHideFlags: 0
