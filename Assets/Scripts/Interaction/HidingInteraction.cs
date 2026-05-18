@@ -33,13 +33,13 @@ public class HidingInteraction : MonoBehaviour
                 player.SetActive(true);
                 isHiding = false;
 
-                if (movement.x > 0.2) {
+                if (movement.x > 0.2 && rightExitPoint.gameObject.activeInHierarchy) {
                     player.transform.position = rightExitPoint.position;
-                } else if (movement.x < -0.2) {
+                } else if (movement.x < -0.2  && leftExitPoint.gameObject.activeInHierarchy) {
                     player.transform.position = leftExitPoint.position;
-                } else if (movement.y > 0.2) {
+                } else if (movement.y > 0.2 && topExitPoint.gameObject.activeInHierarchy) {
                     player.transform.position = topExitPoint.position;
-                } else {
+                } else if (bottomExitPoint.gameObject.activeInHierarchy) {
                     player.transform.position = bottomExitPoint.position;
                 }
             } else
