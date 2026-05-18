@@ -244,7 +244,9 @@ public class PatrolHomeless : MonoBehaviour
         if (dst > maxHearingDistance) return;
 
         float perceivedLoudness = initialLoudness / (dst * dst);
-        float threshold = 0.5f - (_ocean.Neuroticism * 0.4f);
+
+        float n = _ocean.Neuroticism;
+        float threshold = Mathf.Lerp(8f, 0.3f, n * n * n); // Much less aggressive to sounds
         if (perceivedLoudness < threshold) return;
         if (Random.value >= _ocean.Openness) return;
 
