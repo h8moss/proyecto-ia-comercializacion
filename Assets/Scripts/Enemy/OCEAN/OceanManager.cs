@@ -25,4 +25,10 @@ public class OceanManager : MonoBehaviour
     public float A { get => agreeableness; }
     public float N { get => neuroticism; }
 
+    public void setO(float o) => openness = o;
+    public void setC(float c) => conscientiousness = c;
+    public void setE(float e) => extraversion = e;
+    public void setA(float a) => agreeableness = a;
+    public void setN(float n) => neuroticism = n;
+
 }
