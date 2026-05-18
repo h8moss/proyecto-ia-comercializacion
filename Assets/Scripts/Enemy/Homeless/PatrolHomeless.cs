@@ -17,9 +17,9 @@ using UnityEngine;
 [RequireComponent(typeof(OceanManager))]
 public class PatrolHomeless : MonoBehaviour
 {
-    [Header("Escondites a patrullar")]
-    [Tooltip("Lista de escondites entre los que patrulla.")]
-    [SerializeField] private List<Transform> hideouts;
+    // [Header("Escondites a patrullar")]
+    // [Tooltip("Lista de escondites entre los que patrulla.")]
+    // [SerializeField] private List<Transform> hideouts;
 
     [Header("Inspección")]
     [Tooltip("Probabilidad base de detenerse a inspeccionar al llegar a un escondite (0-1).")]
@@ -57,7 +57,10 @@ public class PatrolHomeless : MonoBehaviour
     private float     _inspectTimer;
     private Vector3   _investigationPoint;
 
+    private List<Transform> Hideouts { get => HidingObjectRegister.Instance?.HidingObjects; }
+
     // ─────────────────────────────────────────────────────────────────────
+
 
     void Start()
     {
@@ -149,7 +152,7 @@ public class PatrolHomeless : MonoBehaviour
         _rotation.LookAt(_investigationPoint);
 
         // Si pasa cerca de un escondite con jugador dentro → te encuentra
-        foreach (var h in hideouts)
+        foreach (var h in Hideouts)
         {
             if (h == null) continue;
             float distToHide = Vector2.Distance(transform.position, h.position);
@@ -176,14 +179,14 @@ public class PatrolHomeless : MonoBehaviour
 
     void PickRandomHideout()
     {
-        if (hideouts == null || hideouts.Count == 0)
+        if (Hideouts == null || Hideouts.Count == 0)
         {
             Debug.LogWarning("[VagabundoPatrol] No hay escondites asignados.");
             return;
         }
 
         int newIndex;
-        if (hideouts.Count == 1)
+        if (Hideouts.Count == 1)
         {
             newIndex = 0;
         }
@@ -191,12 +194,12 @@ public class PatrolHomeless : MonoBehaviour
         {
             do
             {
-                newIndex = Random.Range(0, hideouts.Count);
+                newIndex = Random.Range(0, Hideouts.Count);
             } while (newIndex == _currentTargetIndex);
         }
 
         _currentTargetIndex = newIndex;
-        _currentTarget      = hideouts[newIndex];
+        _currentTarget      = Hideouts[newIndex];
         _aStar.destination  = _currentTarget.position;
         _state              = VagabundoState.Patrolling;
     }
@@ -262,10 +265,10 @@ public class PatrolHomeless : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        if (hideouts == null) return;
+        if (Hideouts == null) return;
 
         Gizmos.color = new Color(0.4f, 0.7f, 1f, 0.4f);
-        foreach (var h in hideouts)
+        foreach (var h in Hideouts)
         {
             if (h == null) continue;
             Gizmos.DrawWireSphere(h.position, arrivalDistance);
