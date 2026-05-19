@@ -3,8 +3,8 @@ using UnityEngine;
 public class TutorialPopup : MonoBehaviour
 {
     [SerializeField] private GameObject popupRoot;
-    [SerializeField] private KeyCode closeKey = KeyCode.Space;
-    [SerializeField] private bool showOnStart = true;  // NUEVO
+    [SerializeField] private bool showOnStart = true;
+    [SerializeField] private KeyCode[] closeKeys; // configurable desde Inspector
 
     private bool isOpen = false;
 
@@ -14,18 +14,23 @@ public class TutorialPopup : MonoBehaviour
             popupRoot.SetActive(false);
 
         if (showOnStart)
-            Show();  // NUEVO: aparece automáticamente
+            Show();
     }
+
     void Update()
     {
-        if (isOpen && (Input.GetKeyDown(KeyCode.W) || 
-                    Input.GetKeyDown(KeyCode.A) || 
-                    Input.GetKeyDown(KeyCode.S) || 
-                    Input.GetKeyDown(KeyCode.D)))
+        if (!isOpen) return;
+
+        foreach (KeyCode key in closeKeys)
         {
-            Hide();
+            if (Input.GetKeyDown(key))
+            {
+                Hide();
+                return;
+            }
         }
     }
+
     public void Show()
     {
         if (popupRoot != null)
