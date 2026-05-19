@@ -35,7 +35,7 @@ public class HidingInteraction : MonoBehaviour
             {
                 if (!canExit) return;
                 GameObject player = PlayerLocator.Player.gameObject;
-                player.SetActive(true);
+                player.GetComponent<HidingBehaviour>().Unhide();
                 isHiding = false;
                 sprite.sprite = normalSprite;
 
@@ -58,7 +58,7 @@ public class HidingInteraction : MonoBehaviour
     void OnInteraction()
     {
         Transform player = PlayerLocator.Player;
-        player.gameObject.SetActive(false);
+        player.GetComponent<HidingBehaviour>().Hide();
         isHiding = true;
         sprite.sprite = hidingSprite;
         canExit = false;
@@ -73,8 +73,17 @@ public class HidingInteraction : MonoBehaviour
         if (!isHiding) return;
 
         GameObject player = PlayerLocator.Player.gameObject;
-        player.SetActive(true);
-        player.transform.position = transform.position;
+        player.GetComponent<HidingBehaviour>().Unhide();
+        if (rightExitPoint.gameObject.activeInHierarchy) {
+            player.transform.position = rightExitPoint.position;
+        } else if (leftExitPoint.gameObject.activeInHierarchy) {
+            player.transform.position = leftExitPoint.position;
+        } else if (topExitPoint.gameObject.activeInHierarchy) {
+            player.transform.position = topExitPoint.position;
+        } else if (bottomExitPoint.gameObject.activeInHierarchy) {
+            player.transform.position = bottomExitPoint.position;
+        }
+
         isHiding = false;
         sprite.sprite = normalSprite;
         canExit = false;

@@ -13,8 +13,11 @@ public class PlayerDetection : MonoBehaviour
 
     private int detectionCount = 0;
     private float health;
-    private bool canHeal = true;
     private bool isDead = false;
+    private float healTimer = 0f;
+    private bool isHiddenOnItem = false;
+
+    private HidingBehaviour hb;
 
     public Action<float> healthChanged;
     public Action OnDeath;
@@ -44,45 +47,61 @@ public class PlayerDetection : MonoBehaviour
 
     void Start()
     {
+        hb = GetComponent<HidingBehaviour>();
+
+        hb.OnHidden += Hidden;
+        hb.OnUnhidden += Unhidden;
         DetectionEvents.OnPlayerDetected += OnDetected;
-        DetectionEvents.OnPlayerHidden += OnHidden;
+        DetectionEvents.OnPlayerHidden += OnNotSeen;
 
         health = maxHealth;
     }
 
     void OnDestroy() 
     {
+        hb.OnHidden -= Hidden;
+        hb.OnUnhidden -= Unhidden;
         DetectionEvents.OnPlayerDetected -= OnDetected;
-        DetectionEvents.OnPlayerHidden -= OnHidden;
+        DetectionEvents.OnPlayerHidden -= OnNotSeen;
     }
 
     void Update()
     {
         if (godMode) return;
-        Health -= detectionCount * detectionRate * Time.deltaTime;
-        if (canHeal)
+
+        if (!isHiddenOnItem)
+            Health -= detectionCount * detectionRate * Time.deltaTime;
+
+        if (healTimer <= 0f)
         {
-            Health = Mathf.Min(maxHealth, health + healRate*Time.deltaTime);
+            float newHealRate = healRate * (isHiddenOnItem ? 1.5f : 1f);
+            Health = Mathf.Min(maxHealth, health + newHealRate*Time.deltaTime);
+        } else
+        {
+            healTimer -= Time.deltaTime * (isHiddenOnItem ? 2f : 1f);
         }
     }
 
     void OnDetected()
     {
         detectionCount++;
-        canHeal = false;
-        StopCoroutine(ResumeHealing());
+        healTimer = healDelay;
     }
 
-    void OnHidden()
+    void OnNotSeen()
     {
          detectionCount--;
          if (gameObject.activeInHierarchy)   // ← solo agregar este if
-            StartCoroutine(ResumeHealing());
+            healTimer = healDelay;
     }
 
-    IEnumerator ResumeHealing()
+    void Hidden()
     {
-        yield return new WaitForSeconds(healDelay);
-        canHeal = true;
+        isHiddenOnItem = true;
+    }
+    
+    void Unhidden()
+    {
+        isHiddenOnItem = false;
     }
 }

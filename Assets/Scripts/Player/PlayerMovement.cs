@@ -7,20 +7,27 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
     private PlayerDetection playerDetection;
+    private HidingBehaviour hb;
     public Vector2 Movement { get; private set; }
 
-    private int DeathMultiplier = 1;
+    private int GeneralMultiplier = 1;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         playerDetection = GetComponent<PlayerDetection>();
-        playerDetection.OnDeath += OnDeath;
+        hb = GetComponent<HidingBehaviour>();
+
+        playerDetection.OnDeath += OnDeactivate;
+        hb.OnHidden += OnDeactivate;
+        hb.OnUnhidden += OnReactivate;
     }
 
     void OnDestroy()
     {
-        playerDetection.OnDeath -= OnDeath;
+        playerDetection.OnDeath -= OnDeactivate;
+        hb.OnHidden -= OnDeactivate;
+        hb.OnUnhidden -= OnReactivate;
     }
 
     void Update()
@@ -33,11 +40,15 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.linearVelocity = speed * Time.fixedDeltaTime * Movement * DeathMultiplier;
+        rb.linearVelocity = speed * Time.fixedDeltaTime * Movement * GeneralMultiplier;
     }
 
-    void OnDeath()
+    void OnDeactivate()
     {
-        DeathMultiplier = 0;
+        GeneralMultiplier = 0;
+    }
+    void OnReactivate()
+    {
+        GeneralMultiplier = 1;
     }
 }

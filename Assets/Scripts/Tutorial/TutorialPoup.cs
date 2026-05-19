@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class TutorialPopup : MonoBehaviour
@@ -5,6 +6,7 @@ public class TutorialPopup : MonoBehaviour
     [SerializeField] private GameObject popupRoot;
     [SerializeField] private bool showOnStart = true;
     [SerializeField] private KeyCode[] closeKeys; // configurable desde Inspector
+    [SerializeField] private float showAfter;
 
     private bool isOpen = false;
 
@@ -14,7 +16,7 @@ public class TutorialPopup : MonoBehaviour
             popupRoot.SetActive(false);
 
         if (showOnStart)
-            Show();
+            StartCoroutine(Show());
     }
     void Update()
     {
@@ -38,8 +40,9 @@ public class TutorialPopup : MonoBehaviour
         }
     }
 
-    public void Show()
+    public IEnumerator Show()
     {
+        yield return new WaitForSeconds(showAfter);
         if (popupRoot != null)
         {
             popupRoot.SetActive(true);

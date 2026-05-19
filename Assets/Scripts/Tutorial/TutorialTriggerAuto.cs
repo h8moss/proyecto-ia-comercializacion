@@ -16,7 +16,7 @@ public class TutorialTriggerAuto : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if (triggered && onlyOnce) return;
-        if (!other.CompareTag("Player")) return;
+        if (!PlayerLocator.IsPlayer(other.transform)) return;
 
         if (popup != null)
         {

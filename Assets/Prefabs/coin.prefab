@@ -462,7 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9915fa444c05b1e32913a4012702bbf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinSoundPlayer
-  loudness: 10
+  loudness: 20
 --- !u!114 &5814042911778509378
 MonoBehaviour:
   m_ObjectHideFlags: 0

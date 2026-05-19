@@ -1,16 +1,33 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
-    Interactable currentInteractable = null;
+    private PlayerDetection playerDetection;
+    private HidingBehaviour hb;
+
+    List<Interactable> currentInteractable = new();
+    bool canInteract = true;
+
+    void Start()
+    {
+        playerDetection = GetComponent<PlayerDetection>();
+        hb = GetComponent<HidingBehaviour>();
+        playerDetection.OnDeath += Deactivate;
+        hb.OnHidden += Deactivate;
+        hb.OnUnhidden += Reactivate; 
+    }
 
     void Update()
     {
-        if (currentInteractable != null)
+        if (currentInteractable.Count > 0)
         {
-            if (Input.GetButtonDown("Interact"))
+            if (Input.GetButtonDown("Interact") && canInteract)
             {
-                currentInteractable.onInteraction?.Invoke();
+                foreach (var i in currentInteractable)
+                {
+                    i.onInteraction?.Invoke();
+                }
             }
         }
     }
@@ -19,15 +36,34 @@ public class PlayerInteract : MonoBehaviour
     {
         if (collision.TryGetComponent<Interactable>(out var interactable))
         {
-            currentInteractable = interactable;
+            currentInteractable.Add(interactable);
         }
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (currentInteractable != null && collision.gameObject == currentInteractable.gameObject)
+        int toPop = -1;
+        for (int i=0; i<currentInteractable.Count; i++)
         {
-            currentInteractable = null;
+            if (currentInteractable[i].gameObject == collision.gameObject)
+            {
+                toPop = i;
+                break;
+            }
         }
+        if (toPop > -1)
+        {
+            currentInteractable.RemoveAt(toPop);
+        }
+    }
+
+    void Deactivate()
+    {
+        canInteract = false;
+    }
+
+    void Reactivate()
+    {
+        canInteract = true;
     }
 }

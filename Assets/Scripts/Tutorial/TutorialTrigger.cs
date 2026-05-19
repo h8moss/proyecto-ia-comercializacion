@@ -22,7 +22,7 @@ public class TutorialTrigger : MonoBehaviour
             Debug.Log("Ya fue triggered y onlyOnce activo, salgo");
             return;
         }
-        if (!other.CompareTag("Player")) 
+        if (!PlayerLocator.IsPlayer(other.transform)) 
         {
             Debug.Log("No es Player");
             return;
@@ -31,7 +31,7 @@ public class TutorialTrigger : MonoBehaviour
         if (popup != null)
         {
             Debug.Log("Mostrando popup en " + gameObject.name);
-            popup.Show();
+            StartCoroutine(popup.Show());
             triggered = true;
         }
         else

@@ -6,20 +6,30 @@ public class StepsSound : MonoBehaviour
     [SerializeField] private float stepLoudness;
     private float distanceWalked;
     private Vector3 lastPos;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    private bool isHidden;
+
     void Start()
     {
+        GetComponent<HidingBehaviour>().OnHidden += OnHidden;
+        GetComponent<HidingBehaviour>().OnUnhidden += OnUnhidden;
+        
         lastPos = transform.position;
         TakeStep();
     }
 
-    // Update is called once per frame
+    void OnDestroy()
+    {
+        GetComponent<HidingBehaviour>().OnHidden -= OnHidden;
+        GetComponent<HidingBehaviour>().OnUnhidden -= OnUnhidden;
+    }
+
     void Update()
     {
         float deltaDistance = Vector3.Distance(lastPos, transform.position);
         distanceWalked += deltaDistance;
 
-        if (distanceWalked > stepLength)
+        if (distanceWalked > stepLength && !isHidden)
         {
             TakeStep();
         }
@@ -31,5 +41,15 @@ public class StepsSound : MonoBehaviour
     {
         distanceWalked = 0;
         WorldEvents.RaiseSoundMade(transform.position, stepLoudness);
+    }
+
+    void OnHidden()
+    {
+        isHidden = true;
+    }
+
+    void OnUnhidden()
+    {
+        isHidden = false;
     }
 }

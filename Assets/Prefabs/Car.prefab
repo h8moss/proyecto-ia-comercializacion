@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 483519655254463885}
   - component: {fileID: 1814489731584447473}
   - component: {fileID: 3730914922626794578}
+  - component: {fileID: 8543040252601127704}
   m_Layer: 8
   m_Name: Car
   m_TagString: Untagged
@@ -351,3 +352,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faf4bf6c777fea3f0910e669b0de63e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarLifetimeTracker
+--- !u!114 &8543040252601127704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5685125295217339085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6a34d769a1e4ac7b0b30e433aa443c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: AstarPathfindingProject::Pathfinding.SimpleSmoothModifier
+  version: 1
+  smoothType: 0
+  subdivisions: 2
+  iterations: 1
+  strength: 0.5
+  uniformLength: 1
+  maxSegmentLength: 2
+  bezierTangentLength: 0.4
+  offset: 0.2
+  factor: 0.1

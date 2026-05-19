@@ -54,7 +54,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d35646cc1a0521049144f8beb876135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DetectionArc
-  length: 8.74
+  length: 5.55
   angle: 18.8
   visionObstacles:
     serializedVersion: 2
@@ -223,12 +223,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7f09558076a43e469ca5e0a0dc427b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VagabundoPatrol
-  hideouts:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   inspectChance: 1
   memoryDuration: 15
   inspectDuration: 2.5
