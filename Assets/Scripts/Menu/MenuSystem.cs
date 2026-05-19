@@ -24,4 +24,9 @@ public class MenuSystem : MonoBehaviour
         Debug.Log("Saliste del juego...");
         Application.Quit();
     }
+
+    public void Credits()
+    {
+        SceneManager.LoadScene("Credits");
+    }
 }

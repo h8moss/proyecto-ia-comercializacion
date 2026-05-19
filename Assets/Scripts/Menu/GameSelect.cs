@@ -28,7 +28,7 @@ public class SelectGame : MonoBehaviour
     public void Continue()
     {
         int progress = SaveManager.Instance.State.LevelProgress;
-        int index = Mathf.Clamp(progress - 1, 0, levelScenes.Length - 1);
+        int index = Mathf.Clamp(progress, 0, levelScenes.Length - 1);
         SceneManager.LoadScene(levelScenes[index]);
     }
 
