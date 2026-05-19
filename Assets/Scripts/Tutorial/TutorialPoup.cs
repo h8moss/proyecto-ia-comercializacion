@@ -16,11 +16,11 @@ public class TutorialPopup : MonoBehaviour
         if (showOnStart)
             Show();
     }
-
     void Update()
     {
         if (!isOpen) return;
 
+        // Cierre con teclas configuradas
         foreach (KeyCode key in closeKeys)
         {
             if (Input.GetKeyDown(key))
@@ -28,6 +28,13 @@ public class TutorialPopup : MonoBehaviour
                 Hide();
                 return;
             }
+        }
+
+        // Cierre con click izquierdo o derecho
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+        {
+            Hide();
+            return;
         }
     }
 

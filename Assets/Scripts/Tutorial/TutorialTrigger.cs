@@ -15,13 +15,28 @@ public class TutorialTrigger : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (triggered && onlyOnce) return;
-        if (!other.CompareTag("Player")) return;
+        Debug.Log("[" + gameObject.name + "] ENTRÓ: " + other.name + " tag: " + other.tag);
+        
+        if (triggered && onlyOnce) 
+        {
+            Debug.Log("Ya fue triggered y onlyOnce activo, salgo");
+            return;
+        }
+        if (!other.CompareTag("Player")) 
+        {
+            Debug.Log("No es Player");
+            return;
+        }
 
         if (popup != null)
         {
+            Debug.Log("Mostrando popup en " + gameObject.name);
             popup.Show();
             triggered = true;
+        }
+        else
+        {
+            Debug.Log("Popup es NULL");
         }
     }
 }
