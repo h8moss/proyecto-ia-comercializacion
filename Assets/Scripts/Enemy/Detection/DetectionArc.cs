@@ -1,5 +1,4 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DetectionArc : MonoBehaviour
@@ -43,10 +42,16 @@ public class DetectionArc : MonoBehaviour
 
     bool DetectPlayer()
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, length);
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(~0); // all layers
+        filter.useTriggers = false; // exclude triggers
 
-        foreach (var hit in hits)
+        Collider2D[] hits = new Collider2D[20];
+        int count = Physics2D.OverlapCircle(transform.position, length, filter, hits);
+
+        for (int i = 0; i < count; i++)
         {
+            var hit = hits[i];
             if (PlayerLocator.IsPlayer(hit.transform))
             {
                 Vector2 dirToTarget = (hit.transform.position - transform.position).normalized;

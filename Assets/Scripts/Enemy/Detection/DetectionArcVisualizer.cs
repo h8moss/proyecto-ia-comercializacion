@@ -35,31 +35,36 @@ public class DetectionArcVisualizer : MonoBehaviour
     {
         int rayCount = meshResolution;
         float angleStep = arc.Angle * 2 / rayCount;
-
+    
         Vector3[] vertices = new Vector3[rayCount + 2];
         int[] triangles = new int[rayCount * 3];
-
-        vertices[0] = Vector3.zero; // origin point (local space)
-
+    
+        vertices[0] = Vector3.zero;
+    
+        // Build a filter that ignores trigger colliders
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(arc.VisionObstacles);
+        filter.useTriggers = false;
+        RaycastHit2D[] results = new RaycastHit2D[10];
+    
         for (int i = 0; i <= rayCount; i++)
         {
             float currentAngle = arc.Angle - (angleStep * i);
             Vector3 dir = Quaternion.Euler(0, 0, currentAngle) * transform.right;
-
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, arc.Length, arc.VisionObstacles);
-
-            // If wall hit, stop the mesh there instead of at full radius
-            float dst = hit.collider != null ? hit.distance : arc.Length;
+    
+            int hitCount = Physics2D.Raycast(transform.position, dir, filter, results, arc.Length);
+    
+            float dst = (hitCount > 0) ? results[0].distance : arc.Length;
             vertices[i + 1] = transform.InverseTransformPoint(transform.position + dir * dst);
         }
-
+    
         for (int i = 0; i < rayCount; i++)
         {
             triangles[i * 3] = 0;
             triangles[i * 3 + 1] = i + 1;
             triangles[i * 3 + 2] = i + 2;
         }
-
+    
         visionMesh.Clear();
         visionMesh.vertices = vertices;
         visionMesh.triangles = triangles;

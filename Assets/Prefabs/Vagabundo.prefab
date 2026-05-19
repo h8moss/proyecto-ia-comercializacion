@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 4591588912315815299}
   - component: {fileID: 3945258796221334152}
   - component: {fileID: 3855647231357762407}
+  - component: {fileID: 2273371884515590158}
   m_Layer: 8
   m_Name: Vagabundo
   m_TagString: Untagged
@@ -246,6 +247,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OceanRandomizer
   seed: 0
+--- !u!114 &2273371884515590158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173691497449887944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4113f3fef68e2d9ca6a05b2820dbac5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PatrolEnemyVisuals
+  animator: {fileID: 601640948121265588}
 --- !u!1 &2040053014221877167
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,6 +270,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6278936785049537939}
   - component: {fileID: 4748962254464417286}
+  - component: {fileID: 601640948121265588}
   m_Layer: 8
   m_Name: sprite
   m_TagString: Untagged
@@ -327,7 +342,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -6658002016880107835, guid: 301cbdad34b46917ba400c97e8a732eb, type: 3}
+  m_Sprite: {fileID: 5417892576536726193, guid: 307ccdc5114f33a62821080341e0c1f8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -337,3 +352,25 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!95 &601640948121265588
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040053014221877167}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2f627671f04289142a5165f1f58fa39c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
