@@ -8,9 +8,10 @@ public class PlayerThrowCoin : MonoBehaviour
     [SerializeField] private float fireReloadTime;
     [SerializeField] private float fireForce;
     [SerializeField] private int maxCoinCount;
-    
+
     private int coinCount;
     private bool canFire = true;
+    private bool isHidden = false;
 
     public int MaxCoinCount
     {
@@ -26,13 +27,22 @@ public class PlayerThrowCoin : MonoBehaviour
 
     void Start()
     {
+        GetComponent<HidingBehaviour>().OnHidden += Hidden;
+        GetComponent<HidingBehaviour>().OnUnhidden += UnHidden;
+
         canFire = true;
         coinCount = maxCoinCount;
     }
 
+    void OnDestroy()
+    {
+        GetComponent<HidingBehaviour>().OnHidden -= Hidden;
+        GetComponent<HidingBehaviour>().OnUnhidden -= UnHidden;
+    }
+
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && canFire && coinCount > 0 && !PauseMenu.Paused)
+        if (Input.GetButtonDown("Fire1") && canFire && coinCount > 0 && !PauseMenu.Paused && !isHidden)
         {
             StartCoroutine(Fire());
         }
@@ -64,5 +74,15 @@ public class PlayerThrowCoin : MonoBehaviour
     {
         coinCount++;
         coinsChanged.Invoke(coinCount);
+    }
+
+    void Hidden()
+    {
+        isHidden = true;
+    }
+
+    void UnHidden()
+    {
+        isHidden = false;
     }
 }
