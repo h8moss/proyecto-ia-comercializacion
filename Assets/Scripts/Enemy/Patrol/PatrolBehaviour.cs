@@ -219,4 +219,15 @@ public class PatrolBehaviour : MonoBehaviour
         if (scared) aStar.maxSpeed += delta;
         else aStar.maxSpeed -= delta;
     }
+
+    void OnDrawGizmosSelected()
+    {
+        Vector3 lastPos = transform.position;
+        foreach (var p in patrolPoints)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(lastPos, p.position);
+            lastPos = p.position;
+        }
+    }
 }
