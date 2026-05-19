@@ -19071,11 +19071,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUD
       objectReference: {fileID: 0}
-    - target: {fileID: 6738969318513964093, guid: 5abb07101649dccf79f8b2fbf08a8f84, type: 3}
-      propertyPath: m_text
-      value: 'New Text
-
-'
+    - target: {fileID: 8210886395864222314, guid: 5abb07101649dccf79f8b2fbf08a8f84, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8210886395864222314, guid: 5abb07101649dccf79f8b2fbf08a8f84, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
