@@ -70597,6 +70597,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectiveManager
   objectives:
   - {fileID: 2027408821}
+  - {fileID: 451186121}
+  - {fileID: 230711791}
+  - {fileID: 306160451}
+  - {fileID: 1407376930}
+  - {fileID: 465673805}
+  - {fileID: 1893779262}
   level: 4
   endgameCanvas: {fileID: 1849222821}
   currentObjective: 0
