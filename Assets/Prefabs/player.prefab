@@ -157,6 +157,7 @@ MonoBehaviour:
   detectionRate: 100
   healDelay: 5
   healRate: 10
+  godMode: 0
 --- !u!114 &6365460509926724290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,7 +231,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.45, y: 3.45, z: 3.45}
+  m_LocalScale: {x: 4.865869, y: 4.865869, z: 4.865869}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 9113101826969468024}
@@ -284,7 +285,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -8927612033162531626, guid: d0bdfb1e4d49de57e96c4650c41b057f, type: 3}
+  m_Sprite: {fileID: 8528797533221505093, guid: b2422453eedc420caa5c600f019150f9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

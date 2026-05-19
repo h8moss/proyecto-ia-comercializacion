@@ -183,10 +183,10 @@ public class PatrolBehaviour : MonoBehaviour
 
         float perceivedLoudness = initialLoudness / (dst * dst);
 
-        float threshold = 0.5f - (ocean.Neuroticism * 0.4f);
-        if (scare.IsScared) threshold *= 0.5f;
+        float n = ocean.Neuroticism;
+        float threshold = Mathf.Lerp(8f, 0.3f, n * n * n); // Much less aggressive to sounds
         if (perceivedLoudness < threshold) return;
-        if (Random.value >= ocean.Openness) return; 
+        if (Random.value >= ocean.Openness) return;
 
         Debug.Log("Heard you!");
 

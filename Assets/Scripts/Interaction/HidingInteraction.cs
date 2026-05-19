@@ -7,10 +7,15 @@ public class HidingInteraction : MonoBehaviour
     [SerializeField] private Transform rightExitPoint;
     [SerializeField] private Transform topExitPoint;
     [SerializeField] private Transform bottomExitPoint;
+    [SerializeField] private Sprite normalSprite;
+    [SerializeField] private Sprite hidingSprite;
+    [SerializeField] private SpriteRenderer sprite;
+
     private Interactable interactable;
     private bool isHiding = false;
-    public bool IsHiding => isHiding;   // ← getter público, sigue siendo privada por dentro
     private bool canExit = false;
+
+    public bool IsHiding => isHiding;   // ← getter público, sigue siendo privada por dentro
 
     void Start()
     {
@@ -32,14 +37,15 @@ public class HidingInteraction : MonoBehaviour
                 GameObject player = PlayerLocator.Player.gameObject;
                 player.SetActive(true);
                 isHiding = false;
+                sprite.sprite = normalSprite;
 
-                if (movement.x > 0.2) {
+                if (movement.x > 0.2 && rightExitPoint.gameObject.activeInHierarchy) {
                     player.transform.position = rightExitPoint.position;
-                } else if (movement.x < -0.2) {
+                } else if (movement.x < -0.2  && leftExitPoint.gameObject.activeInHierarchy) {
                     player.transform.position = leftExitPoint.position;
-                } else if (movement.y > 0.2) {
+                } else if (movement.y > 0.2 && topExitPoint.gameObject.activeInHierarchy) {
                     player.transform.position = topExitPoint.position;
-                } else {
+                } else if (bottomExitPoint.gameObject.activeInHierarchy) {
                     player.transform.position = bottomExitPoint.position;
                 }
             } else
@@ -54,6 +60,7 @@ public class HidingInteraction : MonoBehaviour
         Transform player = PlayerLocator.Player;
         player.gameObject.SetActive(false);
         isHiding = true;
+        sprite.sprite = hidingSprite;
         canExit = false;
     }
 
@@ -69,6 +76,7 @@ public class HidingInteraction : MonoBehaviour
         player.SetActive(true);
         player.transform.position = transform.position;
         isHiding = false;
+        sprite.sprite = normalSprite;
         canExit = false;
     }
 }
