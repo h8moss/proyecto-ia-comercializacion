@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 6365460509926724290}
   - component: {fileID: 1894205794636392306}
   - component: {fileID: 8418017712968498232}
+  - component: {fileID: 8916332826696262157}
   m_Layer: 6
   m_Name: player
   m_TagString: Untagged
@@ -203,6 +204,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StepsSound
   stepLength: 2
   stepLoudness: 5
+--- !u!114 &8916332826696262157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925184113960743666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c46e23f8e2d55fe186908faabe2f0fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HidingBehaviour
+  sprite: {fileID: 2755865373617830889}
 --- !u!1 &2755865373617830889
 GameObject:
   m_ObjectHideFlags: 0
