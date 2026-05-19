@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Pathfinding;
 using UnityEngine;
+using System.Linq;
 
 [RequireComponent(typeof(AIPath))]
 [RequireComponent(typeof(GeneralEnemyRotation))]
@@ -10,7 +11,8 @@ using UnityEngine;
 public class PatrolBehaviour : MonoBehaviour
 {
 
-    [SerializeField] private List<Transform> patrolPoints;
+    // [SerializeField] private List<Transform> patrolPoints;
+    [SerializeField] private Transform patrolParent;
     [SerializeField] private float maxHearingDistance;
     [SerializeField] private float waitingLookInterval = 4f;
     [SerializeField] private float waitingLookAngleRange = 90f;
@@ -24,6 +26,8 @@ public class PatrolBehaviour : MonoBehaviour
     private Quaternion waitingInitialRotation;
     private Vector3 investigationTarget;
     private ScareableEnemy scare;
+
+    Transform[] patrolPoints => patrolParent.transform.Cast<Transform>().ToArray();
     
 
     void SetState(PatrolState newState)
@@ -125,7 +129,7 @@ public class PatrolBehaviour : MonoBehaviour
         if (dst < 1.0f)
         {
             currentPatrolTarget++;
-            currentPatrolTarget %= patrolPoints.Count;
+            currentPatrolTarget %= patrolPoints.Length;
 
             bool shouldWait = Random.value < 
                 0.05 
