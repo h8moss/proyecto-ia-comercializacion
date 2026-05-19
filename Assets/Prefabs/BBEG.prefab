@@ -248,6 +248,7 @@ GameObject:
   - component: {fileID: 1803438770240481147}
   - component: {fileID: 6066705188276610869}
   - component: {fileID: 8775819271668153180}
+  - component: {fileID: 4116239471932488369}
   m_Layer: 0
   m_Name: BBEG
   m_TagString: Untagged
@@ -342,6 +343,19 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
+--- !u!114 &4116239471932488369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5032605635046925153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4113f3fef68e2d9ca6a05b2820dbac5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PatrolEnemyVisuals
+  animator: {fileID: 2316994601349079980}
 --- !u!1 &6762418146504187383
 GameObject:
   m_ObjectHideFlags: 0
