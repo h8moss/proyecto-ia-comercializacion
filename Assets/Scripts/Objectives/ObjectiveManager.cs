@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
 /// Manages the objectives of a level in order.
@@ -16,6 +18,8 @@ public class ObjectiveManager : MonoBehaviour
 
     // The level number this scene represents (1-based: lvl1 = 1, lvl2 = 2, etc.)
     [SerializeField] private int level;
+
+    [SerializeField] private Image endgameCanvas;
 
     // Ordered list of level scene names, must match Build Settings
     private readonly string[] levelScenes = { "lvl1", "lvl2", "lvl3", "lvl4" };
@@ -100,8 +104,21 @@ public class ObjectiveManager : MonoBehaviour
         }
         else
         {
-            // No more levels, go to main menu
-            SceneManager.LoadScene("MenuLobby");
+            StartCoroutine(EndOfGame());
+        }
+    }
+
+    IEnumerator EndOfGame()
+    {
+        if (endgameCanvas != null)
+        {
+
+            endgameCanvas.gameObject.SetActive(true);
+            yield return new WaitForEndOfFrame();
+            endgameCanvas.GetComponent<EndGameUI>().fadeDuration = 5f;
+            endgameCanvas.GetComponent<EndGameUI>().StartFade();
+            yield return new WaitForSeconds(8);
+            SceneManager.LoadScene(0);
         }
     }
 }

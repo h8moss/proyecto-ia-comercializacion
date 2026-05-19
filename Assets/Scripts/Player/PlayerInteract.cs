@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
@@ -5,7 +6,7 @@ public class PlayerInteract : MonoBehaviour
     private PlayerDetection playerDetection;
     private HidingBehaviour hb;
 
-    Interactable currentInteractable = null;
+    List<Interactable> currentInteractable = new();
     bool canInteract = true;
 
     void Start()
@@ -19,11 +20,14 @@ public class PlayerInteract : MonoBehaviour
 
     void Update()
     {
-        if (currentInteractable != null)
+        if (currentInteractable.Count > 0)
         {
             if (Input.GetButtonDown("Interact") && canInteract)
             {
-                currentInteractable.onInteraction?.Invoke();
+                foreach (var i in currentInteractable)
+                {
+                    i.onInteraction?.Invoke();
+                }
             }
         }
     }
@@ -32,15 +36,24 @@ public class PlayerInteract : MonoBehaviour
     {
         if (collision.TryGetComponent<Interactable>(out var interactable))
         {
-            currentInteractable = interactable;
+            currentInteractable.Add(interactable);
         }
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (currentInteractable != null && collision.gameObject == currentInteractable.gameObject)
+        int toPop = -1;
+        for (int i=0; i<currentInteractable.Count; i++)
         {
-            currentInteractable = null;
+            if (currentInteractable[i].gameObject == collision.gameObject)
+            {
+                toPop = i;
+                break;
+            }
+        }
+        if (toPop > -1)
+        {
+            currentInteractable.RemoveAt(toPop);
         }
     }
 
