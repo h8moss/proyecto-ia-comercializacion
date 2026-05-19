@@ -174,7 +174,7 @@ MonoBehaviour:
   coinPrefab: {fileID: 8306465515549201878, guid: 4aef4ba5d64ed84ba84c24e316ff97f9, type: 3}
   fireReloadTime: 1
   fireForce: 5
-  maxCoinCount: 10
+  maxCoinCount: 3
 --- !u!114 &1894205794636392306
 MonoBehaviour:
   m_ObjectHideFlags: 0
