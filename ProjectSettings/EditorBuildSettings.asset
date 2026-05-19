@@ -6,8 +6,35 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Scenes/Menus/MenuLobby.unity
+    guid: c8b91eb4e60fb154bbe75b16a21cc106
+  - enabled: 1
+    path: Assets/Scenes/Menus/SelectGame.unity
+    guid: ac81f79b74c355d48b121e77e1d91b20
+  - enabled: 1
+    path: Assets/Scenes/Menus/SelectLevel.unity
+    guid: f368ea5856edbd84c98c1b2ea0c0224a
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 1/lvl1_B.unity
+    guid: 2222b8ddf151d3f8f9c56a5ecc62c222
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 2/lvl2_B.unity
+    guid: d92f12e91fa7bacbba8753551e03441b
+  - enabled: 1
+    path: Assets/Scenes/Menus/Credits.unity
+    guid: 47abcfca9a58f5ef1ac5e36ed3d81e6d
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 4/lvl4.unity
+    guid: ed84e9669c44d9eba86f5015bafdd643
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 3/lvl3.unity
+    guid: 97a4118b5aa038417a9dca5cd6f36520
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 1/lvl1.unity
+    guid: ba455551eb97bb5599cd759442cdcd0a
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 2/lvl2.unity
+    guid: 894339f1d58cb619dbb79266026b2502
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
