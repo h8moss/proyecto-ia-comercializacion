@@ -8,8 +8,6 @@ public class PlayerVisual : MonoBehaviour
     [SerializeField] private Transform sprite;
     [SerializeField] private bool allowDiagonal;
 
-
-    private bool isMoving;
     private bool isDead;
 
     private PlayerMovement playerMovement;
@@ -31,23 +29,13 @@ public class PlayerVisual : MonoBehaviour
     {
         if (isDead) return;
         if (PauseMenu.Paused) return;
+
         Vector2 movement = playerMovement.Movement;
         if (movement.magnitude > 0.1f)
         {
-            if (!isMoving)
-            {
-                animator.SetBool("isMoving", true);
-            }
-
             RotatePlayer(movement);
-        } else
-        {
-            if (isMoving)
-            {
-                animator.SetBool("isMoving", false);
-            }
         }
-        isMoving = movement.magnitude > 0.1f;
+        animator.SetBool("isMoving", movement.magnitude > 0.1f);
     }
 
     void RotatePlayer(Vector2 movement)
@@ -96,7 +84,6 @@ public class PlayerVisual : MonoBehaviour
         if (isDead) return;
         if (h <= 0)
         {
-            isMoving = false;
             isDead = true;
             animator.SetTrigger("Death");
             animator.SetBool("isMoving", false);
