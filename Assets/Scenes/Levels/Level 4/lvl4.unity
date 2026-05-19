@@ -133199,7 +133199,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 783244346072368625, guid: 5170d545777d98af6beba678d243d010, type: 3}
       propertyPath: godMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1925184113960743666, guid: 5170d545777d98af6beba678d243d010, type: 3}
       propertyPath: m_Name
